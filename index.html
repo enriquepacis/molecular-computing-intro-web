@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-10-06 Tue 19:44 -->
+<!-- 2026-10-14 Wed 22:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Molecular Computing using Quantum-dot Cellular Automata</title>
@@ -94,20 +94,27 @@
 <li><a href="#interference">3.4.1. Interference</a></li>
 </ul>
 </li>
-<li><a href="#the-hamiltonian---a-very-important-operator">3.5. The Hamiltonian - a very important operator</a>
+<li><a href="#single-qubit-circuits-in-qiskit">3.5. Single-qubit Circuits in <code>qiskit</code></a>
 <ul>
-<li><a href="#the-electron-volt-a-unit-of-energy">3.5.1. The electron-volt: a Unit of Energy</a></li>
-<li><a href="#the-matrix-elements-of-hath">3.5.2. The Matrix Elements of \(\hat{H}\)</a></li>
-<li><a href="#the-ground-state">3.5.3. The Ground State</a></li>
-<li><a href="#expectation-values">3.5.4. Expectation Values</a></li>
+<li><a href="#a-basic-circuit-in-qiskit">3.5.1. A Basic Circuit in <code>qiskit</code></a></li>
+<li><a href="#a-not-gate-on-a-single-qubit">3.5.2. A NOT Gate on a Single Qubit</a></li>
+<li><a href="#an-mathbfh-gate-on-a-single-qubit">3.5.3. An \(\mathbf{H}\) Gate on a Single Qubit</a></li>
 </ul>
 </li>
-<li><a href="#quantum-information-processing">3.6. Quantum Information Processing</a></li>
-<li><a href="#additional-resources">3.7. Additional Resources</a>
+<li><a href="#the-hamiltonian---a-very-important-operator">3.6. The Hamiltonian - a very important operator</a>
 <ul>
-<li><a href="#qca-part-1---overview-of-the-qca-concept">3.7.1. QCA Part 1 - Overview of the QCA Concept</a></li>
-<li><a href="#qca-part-2---recent-research">3.7.2. QCA Part 2 - Recent Research</a></li>
-<li><a href="#quantum-mechanics">3.7.3. Quantum Mechanics</a></li>
+<li><a href="#the-electron-volt-a-unit-of-energy">3.6.1. The electron-volt: a Unit of Energy</a></li>
+<li><a href="#the-matrix-elements-of-hath">3.6.2. The Matrix Elements of \(\hat{H}\)</a></li>
+<li><a href="#the-ground-state">3.6.3. The Ground State</a></li>
+<li><a href="#expectation-values">3.6.4. Expectation Values</a></li>
+</ul>
+</li>
+<li><a href="#quantum-information-processing">3.7. Quantum Information Processing</a></li>
+<li><a href="#additional-resources">3.8. Additional Resources</a>
+<ul>
+<li><a href="#qca-part-1---overview-of-the-qca-concept">3.8.1. QCA Part 1 - Overview of the QCA Concept</a></li>
+<li><a href="#qca-part-2---recent-research">3.8.2. QCA Part 2 - Recent Research</a></li>
+<li><a href="#quantum-mechanics">3.8.3. Quantum Mechanics</a></li>
 </ul>
 </li>
 </ul>
@@ -204,6 +211,12 @@
 <li><a href="#complexity-classes">10.1. Complexity Classes</a>
 <ul>
 <li><a href="#the-traveling-salesman-problem">10.1.1. The Traveling Salesman Problem</a></li>
+</ul>
+</li>
+<li><a href="#tutorials---pennylane---quantum-optimization">10.2. Tutorials - Pennylane - Quantum Optimization</a>
+<ul>
+<li><a href="#qaoa">10.2.1. QAOA</a></li>
+<li><a href="#qaoa-solution-to-a-minimum-vertex-cover">10.2.2. QAOA solution to a Minimum Vertex Cover</a></li>
 </ul>
 </li>
 </ul>
@@ -345,7 +358,7 @@ dimensional vector:
 </p>
 
 \begin{equation}
-\label{orgace84b3}
+\label{org61e49c0}
 \left|0\right>\leftrightarrow\begin{bmatrix}1\\
 0
 \end{bmatrix}\qquad\text{and}\qquad\left|1\right>\leftrightarrow\begin{bmatrix}0\\
@@ -383,7 +396,7 @@ making a weighted sum of the classical basis states:
 </p>
 
 \begin{equation}
-\label{orgf94b477}
+\label{org9de7653}
 \left|\psi\right>=c_{0}\left|0\right>+c_{1}\left|1\right>
 \end{equation}
 <ul class="org-ul">
@@ -425,7 +438,7 @@ to unity:
 </p>
 
 \begin{equation}
-\label{orga0fc975}
+\label{org8cf0443}
 \left|c_{0}\right|^{2}+\left|c_{1}\right|^{2}=1
 \end{equation}
 <ul class="org-ul">
@@ -441,7 +454,7 @@ representation, \(\vec{\psi}\) (sometimes, I also use
 </p>
 
 \begin{equation}
-\label{orgea2a338}
+\label{org55dd680}
 \left|\psi\right>=c_{0}\left|0\right>+c_{1}\left|1\right>\qquad\leftrightarrow\qquad\vec{\psi}=c_{0}\begin{bmatrix}1\\
 0
 \end{bmatrix}+c_{1}\begin{bmatrix}0\\
@@ -592,7 +605,7 @@ the rules of linear algebra
 </p>
 
 \begin{equation}
-\label{org872b208}
+\label{org017f7e2}
 \begin{aligned}
 \braket{\chi|\psi} & =\left(\ket{\chi}\right)^{\dagger}\ket{\psi}=\left[\begin{array}{cc}
 x_{0}^{\ast} & x_{1}^{\ast}\end{array}\right]\left[\begin{array}{c}
@@ -647,7 +660,7 @@ to write the normalization condition is
 </p>
 
 \begin{equation}
-\label{org6a2dcff}
+\label{org92fcba4}
 \braket{\psi|\psi}=1
 \end{equation}</li>
 <li><p>
@@ -682,7 +695,7 @@ of \(\ket{\psi}\)</li>
 <div id="outline-container-normalization" class="outline-4">
 <h4 id="normalization"><span class="section-number-4">2.4.1.</span> Normalization</h4>
 <div class="outline-text-4" id="text-normalization">
-<div class="note" id="org2198f48">
+<div class="note" id="org71a6e77">
 <p>
 <b>Execrise 2.1</b>
 Find \(\braket{0|0}\) and \(\braket{1|1}\).
@@ -805,7 +818,7 @@ and it satisfies the following:
 </p>
 
 \begin{equation}
-\label{org8bedb85}
+\label{org4ba43c9}
 \braket{\psi|\psi}=\sqrt{\braket{\psi|\psi}}=1\qquad(\text{normalization})
 \end{equation}
 <p>
@@ -815,7 +828,7 @@ Thus, we have seen above that the computational basis states
 <ul class="org-ul">
 <li>We need quantum states to be <b>normalized</b> (i.e., they <b><span class="underline">must</span></b>
 satisfy Equation
-\eqref{org8bedb85} in order to
+\eqref{org4ba43c9} in order to
 have a probabilistic interpretation of their amplitudes</li>
 </ul></li>
 <li>Any wave function \(\ket{\psi}\) with \(0<\braket{\psi|\psi}<\infty\)
@@ -829,7 +842,7 @@ length, \(\sqrt{\braket{\psi|\psi}}\):
 </p>
 
 \begin{equation}
-\label{orgc65e7b6}
+\label{orga590406}
 \ket{\psi^{\prime}}=\frac{\ket{\psi}}{\sqrt{\braket{\psi|\psi}}}
 \end{equation}</li>
 </ul></li>
@@ -839,7 +852,7 @@ length, \(\sqrt{\braket{\psi|\psi}}\):
 <div id="outline-container-orthogonality" class="outline-4">
 <h4 id="orthogonality"><span class="section-number-4">2.4.2.</span> Orthogonality</h4>
 <div class="outline-text-4" id="text-orthogonality">
-<div class="note" id="orgbe56e83">
+<div class="note" id="orgbb6a9d6">
 <p>
 <b>Execrise 2.2</b>
 Find \(\braket{0|1}\) and \(\braket{1|0}\).
@@ -904,7 +917,7 @@ inner product, they are said to be orthogonal, and they satisfy
 </p>
 
 \begin{equation}
-\label{orgffa3093}
+\label{org2132816}
 \braket{\psi|\chi}=\braket{\chi|\psi}=0\qquad(\text{orthogonality})
 \end{equation}
 <ul class="org-ul">
@@ -947,14 +960,14 @@ The general operator \(\mathbf{O}\) transforms a quantum state
 Explicitly, this is
 </p>
 \begin{equation}
-\label{orgcfdd67d}
+\label{org0fa8266}
 \mathbf{X}\ket{0}=\ket{1}\qquad\text{and}\qquad\mathbf{X}\ket{1}=\ket{0}
 \end{equation}</li>
 </ul></li>
 <li>In the linear algebraic world, a matrix is used to transform vectors,
 just as operators transform kets</li>
 <li>If we continue to use the state-to-vector assignments of Equation
-\eqref{orgace84b3}, we have
+\eqref{org61e49c0}, we have
 chosen to work in the computational basis.</li>
 </ul>
 </div>
@@ -968,7 +981,7 @@ chosen to work in the computational basis.</li>
 <div class="outline-text-4" id="text-matrix-columns">
 <ul class="org-ul">
 <li>Since we've made the state-to-vector assignments as in Equation
-\eqref{orgace84b3}, we can find the
+\eqref{org61e49c0}, we can find the
 matrix representation of an operator in the basis
 \(\left\{ \ket{0},\ket{1}\right\}\)</li>
 <li>We may use a fact from linear algebra to find the matrix
@@ -1003,7 +1016,7 @@ matrix \(M\)
 </p>
 
 \begin{equation}
-\label{orgfcf1774}
+\label{org38e8be3}
 M\vec{e}_{k}=k\text{-th colum of }M
 \end{equation}
 <ul class="org-ul">
@@ -1011,7 +1024,7 @@ M\vec{e}_{k}=k\text{-th colum of }M
 Example: let
 </p>
 \begin{equation}
-\label{org533dfb4}
+\label{orgf5e9a08}
 M=\left[\begin{array}{ccc}
 a & b & c\\
 d & e & f\\
@@ -1048,7 +1061,7 @@ i
 </ul></li>
 </ul></li>
 </ul>
-<div class="note" id="org30273a1">
+<div class="note" id="org8d62e5c">
 <p>
 <b>Exercise 3.1</b>
 Find \(X\), the matrix representation of \(\mathbf{X}\) in the
@@ -1070,11 +1083,11 @@ X=\left[\begin{array}{cc}
 
 </div>
 
-<div class="note" id="org0c874b6">
+<div class="note" id="orgcd4834b">
 <p>
 <b>Exercise 3.2</b>
 Verify that \(X\) transforms the basis states consistent with Equation
-\eqref{orgcfdd67d}.
+\eqref{org0fa8266}.
 </p>
 <details><summary>Show/hide solution...</summary>
 \begin{equation}
@@ -1126,7 +1139,7 @@ for the Hilbert space of \(\mathbf{M}\), we can write the trace of
 </p>
 
 \begin{equation}
-\label{org176f26e}
+\label{org2edc867}
 \text{Tr}\;\left(\mathbf{M}\right)=\sum_{j}\Braket{\psi_{j}|\mathbf{M}|\psi_{j}}
 \end{equation}</li>
 <li>Interestingly, the trace is basis-independent
@@ -1138,7 +1151,7 @@ the trace of \(\mathbf{M}\) in both bases, we get the same number</li>
 </ul></li>
 </ul></li>
 </ul>
-<div class="note" id="org4fcd25b">
+<div class="note" id="orgf39846e">
 <p>
 <b>Exercise 3.3</b>
 Find the following matrix elements of the \(\mathbf{X}\) operator..
@@ -1192,7 +1205,7 @@ Find the following matrix elements of the \(\mathbf{X}\) operator..
 
 </div>
 
-<div class="note" id="org9ed4129">
+<div class="note" id="orge928cf4">
 <p>
 <b>Exercise 3.4</b>
 Calculate the inner products \(\vec{e}_{2}^{T}M\vec{e}_{3}\) and
@@ -1245,21 +1258,21 @@ We can see that \(\vec{e}_{2}^{T}M\vec{e}_{3}\) and \(\vec{e}_{3}^{T}M\vec{e}_{2
 <h4 id="a-basic-quantum-circuit"><span class="section-number-4">3.2.3.</span> A Basic Quantum Circuit</h4>
 <div class="outline-text-4" id="text-a-basic-quantum-circuit">
 
-<div id="org9511a1a" class="figure">
+<div id="orgacbf9e5" class="figure">
 <p><img src="img/single-qubit-timeline.png" alt="single-qubit-timeline.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>A single-Qbit timeline.</p>
 </div>
 
 
-<div id="org17f43ff" class="figure">
+<div id="org11c371d" class="figure">
 <p><img src="img/single-qubit-NOT.png" alt="single-qubit-NOT.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>A single Qbit timeline with a NOT operation.</p>
 </div>
 
 
-<div id="org839f746" class="figure">
+<div id="orgafea0ac" class="figure">
 <p><img src="img/single-qubit-timeline-with-ops.png" alt="single-qubit-timeline-with-ops.png" />
 </p>
 <p><span class="figure-number">Figure 3: </span>A single Qbit timeline with a series of operations.</p>
@@ -1273,9 +1286,9 @@ from left to right</li>
 \(\ket{0}\)</li>
 <li>Basic single-qubit quantum circuits are shown
 <ul class="org-ul">
-<li>Figure <a href="#org9511a1a">1</a>: A straight line indicates a
+<li>Figure <a href="#orgacbf9e5">1</a>: A straight line indicates a
 single-qubit timeline without any transformations</li>
-<li>Figure <a href="#org17f43ff">2</a>: A single qubit transformed
+<li>Figure <a href="#org11c371d">2</a>: A single qubit transformed
 from \(\ket{0}\) to \(\ket{1}\) using a NOT operator is drawn as a
 straight line connecting to boxed \(\mathbf{X}\) (NOT gate)
 <ul class="org-ul">
@@ -1283,7 +1296,7 @@ straight line connecting to boxed \(\mathbf{X}\) (NOT gate)
 <li>The gate output is on the right (final state) and is
 \(\mathbf{X}\ket{0}=\ket{1}\)</li>
 </ul></li>
-<li>Figure <a href="#org839f746">3</a>: two operations, \(\mathbf{A}\) and
+<li>Figure <a href="#orgafea0ac">3</a>: two operations, \(\mathbf{A}\) and
 \(\mathbf{B}\), transform the initial state \(\ket{0}\) in sequence
 <ul class="org-ul">
 <li>Since \(\mathbf{A}\) is on the left, it is applied first to
@@ -1312,7 +1325,7 @@ drawn in sequence from left to right</li>
 The NOT operator \(\mathbf{X}\) is equivalent to the Pauli operator,
 </p>
 \begin{equation}
-\label{org0075100}
+\label{org435da6e}
 \mathbf{X}=\sigma_{x}=\left[\begin{array}{cc}
 0 & 1\\
 1 & 0
@@ -1322,7 +1335,7 @@ The NOT operator \(\mathbf{X}\) is equivalent to the Pauli operator,
 In addition to \(\sigma_{x}\), there are two other Pauli operators,
 </p>
 \begin{equation}
-\label{org5197d93}
+\label{orgae573ce}
 \mathbf{Y}=\sigma_{y}=\left[\begin{array}{cc}
 0 & i\\
 -i & 0
@@ -1338,7 +1351,7 @@ as
 </p>
 
 \begin{equation}
-\label{org88a00f5}
+\label{orgaf0b041}
 \mathbf{Y}=\sigma_{y}=\left[\begin{array}{cc}
 0 & -i\\
 i & 0
@@ -1353,11 +1366,11 @@ i & 0
 \(\mathbf{Z}\) from least to greatest going down the diagonal</li>
 <li>It is more common in quantum computing literature to use the
 definitions of Equation
-\eqref{org88a00f5}</li>
+\eqref{orgaf0b041}</li>
 <li>Thus, we will prefer the convention of Equation
-\eqref{org88a00f5} for
+\eqref{orgaf0b041} for
 quantum computing applications, and we may use the convention of
-Equation \eqref{org5197d93} when doing quantum
+Equation \eqref{orgae573ce} when doing quantum
 mechanics</li>
 </ul></li>
 </ul></li>
@@ -1377,7 +1390,7 @@ combination of desirable answers</li>
 </ul></li>
 </ul></li>
 </ul>
-<div class="note" id="org3d6a800">
+<div class="note" id="orgffd6c7a">
 <p>
 <b>Exercise 3.5</b>
 How does \(\mathbf{Z}\) transform the states \(\ket{0}\) and
@@ -1385,7 +1398,7 @@ How does \(\mathbf{Z}\) transform the states \(\ket{0}\) and
 </p>
 <details><summary>Show/hide solution...</summary>
 \begin{equation}
-\label{org045978d}
+\label{org3f86141}
 \mathbf{Z}\ket{0}=\left[\begin{array}{cc}
 1 & 0\\
 0 & -1
@@ -1397,7 +1410,7 @@ How does \(\mathbf{Z}\) transform the states \(\ket{0}\) and
 \end{equation}
 
 \begin{equation}
-\label{orgb1997db}
+\label{org6779df0}
 \mathbf{Z}\ket{1}=\left[\begin{array}{cc}
 1 & 0\\
 0 & -1
@@ -1441,17 +1454,17 @@ Hadamard transformation, \(\mathbf{H}\):
 </p>
 
 \begin{equation}
-\label{orgcf48525}
+\label{org490709c}
 \mathbf{H}=\frac{1}{\sqrt{2}}\left(\mathbf{X}+\mathbf{Z}\right)
 \end{equation}</li>
 <li>The next exercise will prepare us to discover interference in quantum
 states.</li>
 </ul>
-<div class="note" id="org55328a7">
+<div class="note" id="org4d89de8">
 <p>
 <b>Exercise 3.6</b>
 Consider \(\mathbf{H}\) from Equation
-\eqref{orgcf48525}.
+\eqref{org490709c}.
 </p>
 <ol class="org-ol">
 <li><p>
@@ -1464,7 +1477,7 @@ Determine how \(\mathbf{H}\) transforms the classical states
 </p>
 
 \begin{equation}
-\label{org0fa230d}
+\label{orgb7df213}
  \begin{aligned}
        \mathbf{H}\ket{0} & =\left(\frac{1}{\sqrt{2}}\left(\mathbf{X}+\mathbf{Z}\right)\right)\ket{0}\nonumber \\
         & =\frac{1}{\sqrt{2}}\left(\mathbf{X}\ket{0}+\mathbf{Z}\ket{0}\right)\nonumber \\
@@ -1473,13 +1486,13 @@ Determine how \(\mathbf{H}\) transforms the classical states
 \end{equation}
 <p>
 Here, we have used Equation
-\eqref{orgcf48525} to expand \(\mathbf{H}\), and
+\eqref{org490709c} to expand \(\mathbf{H}\), and
 we have used the action of \(\mathbf{H}\) on \(\ket{0}\) and
 \(\ket{1}\) from the previous exercise, see .
 </p>
 
 \begin{equation}
-\label{org919e2eb}
+\label{org00f9741}
  \begin{aligned}
        \mathbf{H}\ket{1} & =\left(\frac{1}{\sqrt{2}}\left(\mathbf{X}+\mathbf{Z}\right)\right)\ket{1}\nonumber \\
         & =\frac{1}{\sqrt{2}}\left(\mathbf{X}\ket{1}+\mathbf{Z}\ket{1}\right)\nonumber \\
@@ -1517,8 +1530,8 @@ column-wise manner:
 \end{equation}
 <p>
 Alternately, we could use Equations
-\eqref{org0075100} and
-\eqref{org88a00f5}.<br />
+\eqref{org435da6e} and
+\eqref{orgaf0b041}.<br />
 </p>
 </details></li>
 <li><p>
@@ -1528,7 +1541,7 @@ Hadamard operation. Calculate the probabilities of measuring
 </p>
 <details><summary>Show/hide solution...</summary>The circuit
 <p>
-is shown in Figure <a href="#org71d5d99">4</a>. For the initial
+is shown in Figure <a href="#orgd60698a">4</a>. For the initial
 state, we have a 100% probability for measuring "0" and a 0%
 probability of measuring state "1":
 </p>
@@ -1550,7 +1563,7 @@ so we can calculate an equal probability for measuring "0" or "1":
 \end{equation}
 
 
-<div id="org71d5d99" class="figure">
+<div id="orgd60698a" class="figure">
 <p><img src="img/single-qubit-H-ket0.png" alt="single-qubit-H-ket0.png" />
 </p>
 <p><span class="figure-number">Figure 4: </span>A single qubit timeline with a \(\mathbf{H}\) operation on \(\ket{0}\).</p>
@@ -1566,7 +1579,7 @@ Hadamard operation. Calculate the probabilities of measuring
 \(\ket{1}\), we must first transform the conventional inital
 \(\ket{0}\) using the \(\mathbf{X}\) operator. Then, we can apply a
 \(\mathbf{H}\) operation. The circuit is shown in Figure
-<a href="#org63b9906">5</a>. For the initial state, we have a
+<a href="#orgce65df6">5</a>. For the initial state, we have a
 100% probability for measuring "1" and a 0% probability of measuring
 state "0":
 </p>
@@ -1592,7 +1605,7 @@ difference between the kets \(\ket{\pm}\).
 </p>
 
 
-<div id="org63b9906" class="figure">
+<div id="orgce65df6" class="figure">
 <p><img src="img/single-qubit-H-ket1.png" alt="single-qubit-H-ket1.png" />
 </p>
 <p><span class="figure-number">Figure 5: </span>A single qubit timeline with a \(\mathbf{H}\) operation on \(\ket{0}\).</p>
@@ -1602,14 +1615,14 @@ difference between the kets \(\ket{\pm}\).
 
 </div>
 
-<div class="note" id="org5c0375a">
+<div class="note" id="org6c4cded">
 <p>
 <b>Exercise 3.7</b>
-Consider the circuit of Figure <a href="#org8c3192e">6</a>.
+Consider the circuit of Figure <a href="#org66a97e5">6</a>.
 </p>
 
 
-<div id="org8c3192e" class="figure">
+<div id="org66a97e5" class="figure">
 <p><img src="img/single-qubit-Hsq.png" alt="single-qubit-Hsq.png" />
 </p>
 <p><span class="figure-number">Figure 6: </span>A single Qbit timeline with an \(\mathbf{H}^{2}\) operation on \(\ket{0}\).</p>
@@ -1620,7 +1633,7 @@ Find the final state \(\ket{\psi_{0}}\).<br />
 </p>
 <details><summary>Show/hide solution...</summary>
 \begin{equation}
-\label{org13880bd}
+\label{org822ca7c}
    \begin{aligned}
          \ket{\psi_{0}} & =\mathbf{H}\ket{+}=\frac{1}{\sqrt{2}}\mathbf{H}\left(\ket{0}+\ket{1}\right)\nonumber \\
           & =\frac{1}{\sqrt{2}}\left(\mathbf{H}\ket{0}+\mathbf{H}\ket{1}\right)\nonumber \\
@@ -1647,14 +1660,14 @@ of measuring "1":
 
 </div>
 
-<div class="note" id="org9796278">
+<div class="note" id="orgeaca8e8">
 <p>
 <b>Exercise 3.8</b>
-Consider the circuit of Figure <a href="#orgd4eee82">7</a>.
+Consider the circuit of Figure <a href="#orgfd844a8">7</a>.
 </p>
 
 
-<div id="orgd4eee82" class="figure">
+<div id="orgfd844a8" class="figure">
 <p><img src="img/single-qubit-Hsq-ket1.png" alt="single-qubit-Hsq-ket1.png" />
 </p>
 <p><span class="figure-number">Figure 7: </span>A single Qbit timeline with an \(\mathbf{H}^{2}\) operation on \(\ket{1}\).</p>
@@ -1665,7 +1678,7 @@ Find the final state \(\ket{\psi_{1}}\).<br />
 </p>
 <details><summary>Show/hide solution...</summary>
 \begin{equation}
-\label{org76af3ba}
+\label{orge374934}
    \begin{aligned}
          \ket{\psi_{1}} & =\mathbf{H}\ket{-}=\frac{1}{\sqrt{2}}\mathbf{H}\left(\ket{0}-\ket{1}\right)\nonumber \\
           & =\frac{1}{\sqrt{2}}\left(\mathbf{H}\ket{0}-\mathbf{H}\ket{1}\right)\nonumber \\
@@ -1694,7 +1707,7 @@ of measuring "0":
 <ul class="org-ul">
 <li>In the previous two exercises, we have probability amplitudes
 \(c_{k}\) canceling in the lines prior to Equations
-\eqref{org13880bd} and \eqref{org76af3ba}
+\eqref{org822ca7c} and \eqref{orge374934}
 <ul class="org-ul">
 <li>This is a destructive interference, which leads to zero probability
 \(c_{k}^{\ast}c_{k}=\left|c_{k}\right|^{2}\) of measuring certain
@@ -1721,8 +1734,381 @@ outcomes with a non-zero probability of measurement</li>
 </div>
 </div>
 </div>
+<div id="outline-container-single-qubit-circuits-in-qiskit" class="outline-3">
+<h3 id="single-qubit-circuits-in-qiskit"><span class="section-number-3">3.5.</span> Single-qubit Circuits in <code>qiskit</code></h3>
+<div class="outline-text-3" id="text-single-qubit-circuits-in-qiskit">
+</div>
+<div id="outline-container-a-basic-circuit-in-qiskit" class="outline-4">
+<h4 id="a-basic-circuit-in-qiskit"><span class="section-number-4">3.5.1.</span> A Basic Circuit in <code>qiskit</code></h4>
+<div class="outline-text-4" id="text-a-basic-circuit-in-qiskit">
+<ul class="org-ul">
+<li>Let's make and simulate our first quantum circuit in <code>qiskit</code></li>
+<li>Every quantum computing calculation requires two parts:
+<ul class="org-ul">
+<li>transformations using quantum gates, and</li>
+<li>measurement</li>
+</ul></li>
+<li>For a single qubit:
+<ul class="org-ul">
+<li>We start with the initial state, \(\ket{0}\)</li>
+<li>We transform the initial state to an arbitrary state \(\ket{\psi}\)
+<ul class="org-ul">
+<li>This could be any valid, normalized linear combination of
+\(\ket{0}\) and \(\ket{1}\)</li>
+<li>In theory, \(\ket{\psi}\) could contain an enormous amount of
+information</li>
+</ul></li>
+<li>We perform a measurement
+<ul class="org-ul">
+<li>This result is only and always "0" or "1", that is, a single bit!
+<ul class="org-ul">
+<li>Through measurement, the wave function \(\ket{\psi}\) is
+<b>collapsed</b> from its pre-measurement quantum superposition state
+down to just a classical \(\ket{0}\) or \(\ket{1}\)</li>
+<li>Because of measurement, we destroy quantum superpositions and
+end up only with classical states</li>
+</ul></li>
+<li>The outcome of a quantum measurement is truly random</li>
+<li>Generally, quantum experiments are repeated many times and we
+learn something about the probabilities
+\(\left|c_{k}\right|^{2}=c_{k}^{\ast}c_{k}\), but we can learn
+nothing about the amplitudes \(c_{k}\) directly</li>
+</ul></li>
+</ul></li>
+<li>In this example, we will make the simplest of quantum circuits
+<ul class="org-ul">
+<li>For a single-qubit circuit, we will use a single quantum wire</li>
+<li>We perform no transformations on the initial state \(\ket{0}\)</li>
+<li>We take measurements</li>
+</ul></li>
+<li>Let's create the circuit in <code>qiskit</code>:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #F0DFAF; font-weight: bold;">from</span> qiskit <span style="color: #F0DFAF; font-weight: bold;">import</span> QuantumCircuit
+<span style="color: #F0DFAF; font-weight: bold;">from</span> qiskit.primitives <span style="color: #F0DFAF; font-weight: bold;">import</span> StatevectorSampler
+<span style="color: #F0DFAF; font-weight: bold;">from</span> qiskit.visualization <span style="color: #F0DFAF; font-weight: bold;">import</span> plot_histogram
+<span style="color: #F0DFAF; font-weight: bold;">import</span> matplotlib.pyplot <span style="color: #F0DFAF; font-weight: bold;">as</span> plt
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">One qubit, one classical bit (the default qubit state is |0&gt;)</span>
+<span style="color: #DFAF8F;">qc</span> = QuantumCircuit(1, 1)
+qc.<span style="color: #DCDCCC; font-weight: bold;">id</span>(0) <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">adds an identity gate (does nothing)</span>
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If working in Jupyter, use qc.draw("mpl") instead of the following code</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Draw the circuit</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">qc.draw("mpl")</span>
+
+<span style="color: #F0DFAF; font-weight: bold;">import</span> os
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>, <span style="color: #CC9393;">'simple-circuit-I-qiskit.png'</span>)
+qc.draw(<span style="color: #CC9393;">"mpl"</span>, filename=figname)
+</code></pre>
+</div>
+
+
+<div id="orgc55ec9b" class="figure">
+<p><img src="img/simple-circuit-I-qiskit.png" alt="simple-circuit-I-qiskit.png" />
+</p>
+<p><span class="figure-number">Figure 8: </span>A single-Qbit timeline.</p>
+</div>
+<ul class="org-ul">
+<li>Let's make some observations about our circuit
+<ul class="org-ul">
+<li>The circuit has one qubit timeline, labeled \(q\)
+<ul class="org-ul">
+<li>The \(q\) timeline has an identity gate, \(\mathbf{I}\), which
+leaves the quantum state as it is
+<ul class="org-ul">
+<li>The \(\mathbf{I}\) gate could be omitted and left as a straight
+wire, but we add this as a placeholder</li>
+</ul></li>
+<li>By convention, all qubits in a quantum circuit are prepared in
+state \(\ket{0}\) before the computation, i.e., at the very left
+of the circuit</li>
+</ul></li>
+<li>The circuit has a one classical register, labeled \(c\)
+<ul class="org-ul">
+<li>The \(c\) register is annotated with a "1", indicating that it has
+one classical bit.
+<ul class="org-ul">
+<li>This could be any larger integer, also, but the register will be
+drawn as it is in the circuit above, so additional classical
+bits will be represented only by a larger integer</li>
+</ul></li>
+<li>The purpose of the classical register is to receive measurement
+outputs, which can only be classical bits</li>
+</ul></li>
+</ul></li>
+<li>Next, we add a measurement gate</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code>qc.measure(0, 0) <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">adds a measurement gate</span>
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If working in Jupyter, use qc.draw("mpl") instead of the following code</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Draw the circuit</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">qc.draw("mpl")</span>
+
+<span style="color: #F0DFAF; font-weight: bold;">import</span> os
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>, <span style="color: #CC9393;">'simple-circuit-I-qiskit-meas.png'</span>)
+qc.draw(<span style="color: #CC9393;">"mpl"</span>, filename=figname)
+</code></pre>
+</div>
+
+
+<div id="org4a3e0fe" class="figure">
+<p><img src="img/simple-circuit-I-qiskit-meas.png" alt="simple-circuit-I-qiskit-meas.png" />
+</p>
+<p><span class="figure-number">Figure 9: </span>A single-Qbit timeline.</p>
+</div>
+<ul class="org-ul">
+<li>Some observations about the measurement gate:
+<ul class="org-ul">
+<li>The measurement gate is drawn as an analog meter with a needle</li>
+<li>The output of a measurement on the zeroth qubit (the only qubit in
+this case) is a classical result, which is imprinted on the
+classical register.
+<ul class="org-ul">
+<li>The "0" near the connection of the measurement gate to the
+register \(c\) indicates that measurement on qubit 0 is sent to
+\(c\)</li>
+</ul></li>
+</ul></li>
+<li>Next, we simulate the quantum circuit and the measurement
+<ul class="org-ul">
+<li>The only access we have to a quantum computation is at the end, via
+measurement
+<ul class="org-ul">
+<li>Measurement can only yield \(\ket{0}\) or \(\ket{1}\), sending the
+classical bits "0" or "1", respectively, to the classical register
+\(c\)</li>
+<li>We are unable to access the complex probability amplitudes, and
+measurement destroys quantum superpositions</li>
+</ul></li>
+<li>Because we can only access classical results and not probability
+amplitudes, it is useful to run the circuit several repeated, with
+each repetition being called a <b>shot</b>.</li>
+<li>Typically, we tabulate the results of the measurements over several
+shots, and we make a histogram of the results</li>
+<li>In this case, we have one qubit, so we make a histogram of the
+number of "0"s and "1"s we measured over all shots</li>
+<li>qiskit provides a few different simulators, so here, we will use the
+<code>StateVectorSampler()</code> class</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">create a sampler object to simulate the circuit</span>
+<span style="color: #DFAF8F;">sampler</span> = StatevectorSampler()
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">run the sampler for several shots</span>
+<span style="color: #DFAF8F;">result</span> = sampler.run([qc], shots=1024).result()
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">get the counts from the classical register c</span>
+<span style="color: #DFAF8F;">counts</span> = result[0].data.c.get_counts()
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(counts)  <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">{'0': 1024}</span>
+
+<span style="color: #DFAF8F;">fig</span> = plot_histogram(counts)
+
+<span style="color: #5F7F5F;">#</span><span style="color: #7F9F7F;">plt.show()</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If using a Jupyter notebook, use plt.show() and omit the following code:</span>
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>, <span style="color: #CC9393;">'simple-circuit-histogram.png'</span>)
+
+fig.savefig(figname, dpi=300, bbox_inches=<span style="color: #CC9393;">"tight"</span>)
+
+plt.close(<span style="color: #CC9393;">'all'</span>)
+</code></pre>
+</div>
+
+<pre class="example">
+{'0': 1024}
+</pre>
+
+
+<div id="orgc8a16d0" class="figure">
+<p><img src="img/simple-circuit-histogram.png" alt="simple-circuit-histogram.png" />
+</p>
+<p><span class="figure-number">Figure 10: </span>Results of a single-qubit circuit and measurement.</p>
+</div>
+<ul class="org-ul">
+<li>The results shown in Figure <a href="#orgc8a16d0">10</a>
+show that we measured "0" for all 1024 shots, and there were no "1"
+measurements. Does this make sense? Let's step through the circuit
+<ul class="org-ul">
+<li>At the left of the qubit timeline \(q\), the state is prepared in
+state \(\ket{\psi}=\ket{0}=c_{0}\ket{0}+c_{1}\ket{1}\), with
+\(c_{0}=1\) and \(c_{1}=0\).</li>
+<li>The \(\mathbf{I}\) gate leaves the qubit untransformed, so the input
+to the measurement gate is \(\ket{0}\)
+<ul class="org-ul">
+<li>The probability for measuring "0" is \(\left|c_{0}\right|^{2}=1\),
+and</li>
+<li>The probability for measuring "1" is \(\left|c_{1}\right|^{2}=0\)</li>
+</ul></li>
+<li>These measurement probabilities are consistent with our walk through
+the circuit: 100% of the measurement results are "0"</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-a-not-gate-on-a-single-qubit" class="outline-4">
+<h4 id="a-not-gate-on-a-single-qubit"><span class="section-number-4">3.5.2.</span> A NOT Gate on a Single Qubit</h4>
+<div class="outline-text-4" id="text-a-not-gate-on-a-single-qubit">
+<ul class="org-ul">
+<li>Here, we replace the \(\mathbf{I}\) gate with an \(\mathbf{X}\) gate
+<ul class="org-ul">
+<li>This transforms the prepared state \(\ket{0}\) to \(\ket{1}\), which
+is the input to the measurement gate</li>
+<li>We should expect to get "1" for all 1024 shots.</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #F0DFAF; font-weight: bold;">from</span> qiskit <span style="color: #F0DFAF; font-weight: bold;">import</span> QuantumCircuit
+<span style="color: #F0DFAF; font-weight: bold;">from</span> qiskit.primitives <span style="color: #F0DFAF; font-weight: bold;">import</span> StatevectorSampler
+<span style="color: #F0DFAF; font-weight: bold;">from</span> qiskit.visualization <span style="color: #F0DFAF; font-weight: bold;">import</span> plot_histogram
+<span style="color: #F0DFAF; font-weight: bold;">import</span> matplotlib.pyplot <span style="color: #F0DFAF; font-weight: bold;">as</span> plt
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">One qubit, one classical bit (the default qubit state is |0&gt;)</span>
+<span style="color: #DFAF8F;">qc</span> = QuantumCircuit(1, 1)
+qc.x(0) <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">adds a NOT gate to qubit 0</span>
+
+qc.measure(0, 0) <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">adds a measurement gate</span>
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If working in Jupyter, use qc.draw("mpl") instead of the following code</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Draw the circuit</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">qc.draw("mpl")</span>
+
+<span style="color: #F0DFAF; font-weight: bold;">import</span> os
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>, <span style="color: #CC9393;">'simple-circuit-X-qiskit-meas.png'</span>)
+qc.draw(<span style="color: #CC9393;">"mpl"</span>, filename=figname)
+</code></pre>
+</div>
+
+
+<div id="orgf3b0c87" class="figure">
+<p><img src="img/simple-circuit-X-qiskit-meas.png" alt="simple-circuit-X-qiskit-meas.png" />
+</p>
+<p><span class="figure-number">Figure 11: </span>A single-qubit is transformed from \(\ket{0}\) to \(\ket{1}\) and measured.</p>
+</div>
+<ul class="org-ul">
+<li>We now simulate this:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">run the sampler for several shots</span>
+<span style="color: #DFAF8F;">result</span> = sampler.run([qc], shots=1024).result()
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">get the counts from the classical register c</span>
+<span style="color: #DFAF8F;">counts</span> = result[0].data.c.get_counts()
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(counts)  <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">{'1': 1024}</span>
+
+<span style="color: #DFAF8F;">fig</span> = plot_histogram(counts)
+
+<span style="color: #5F7F5F;">#</span><span style="color: #7F9F7F;">plt.show()</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If using a Jupyter notebook, use plt.show() and omit the following code:</span>
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>, <span style="color: #CC9393;">'simple-circuit-X-histogram.png'</span>)
+
+fig.savefig(figname, dpi=300, bbox_inches=<span style="color: #CC9393;">"tight"</span>)
+
+plt.close(<span style="color: #CC9393;">'all'</span>)
+</code></pre>
+</div>
+
+<pre class="example">
+{'1': 1024}
+</pre>
+
+
+<div id="org3a55c9a" class="figure">
+<p><img src="img/simple-circuit-X-histogram.png" alt="simple-circuit-X-histogram.png" />
+</p>
+<p><span class="figure-number">Figure 12: </span>Results of a single-qubit circuit and measurement after transforming the prepared state \(\ket{0}\) to \(\ket{1}\).</p>
+</div>
+</div>
+</div>
+<div id="outline-container-an-mathbfh-gate-on-a-single-qubit" class="outline-4">
+<h4 id="an-mathbfh-gate-on-a-single-qubit"><span class="section-number-4">3.5.3.</span> An \(\mathbf{H}\) Gate on a Single Qubit</h4>
+<div class="outline-text-4" id="text-an-mathbfh-gate-on-a-single-qubit">
+<ul class="org-ul">
+<li>Previously, we supplied a classical bit, \(\ket{0}\) or \(\ket{1}\) to
+the measurement gate</li>
+<li>What happens if we supply a quantum state?
+<ul class="org-ul">
+<li>To do this, we transform \(\ket{0}\) into
+\(\ket{+}=\left(\ket{0}+\ket{1}\right)/\sqrt{2}\) using a
+\(\mathbf{H}\) gate</li>
+<li>This leaves us with \(c_{0}=c_{1}=1/\sqrt{2}\), and the measurement
+probabilities \(p\left(0\right)=p\left(1\right)=1/2\)</li>
+<li>We should expect to see "0" and "1" for about half of the 1024 shots
+each</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">One qubit, one classical bit (the default qubit state is |0&gt;)</span>
+<span style="color: #DFAF8F;">qc</span> = QuantumCircuit(1, 1)
+qc.h(0) <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">adds a NOT gate to qubit 0</span>
+
+qc.measure(0, 0) <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">adds a measurement gate</span>
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If working in Jupyter, use qc.draw("mpl") instead of the following code</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">Draw the circuit</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">qc.draw("mpl")</span>
+
+<span style="color: #F0DFAF; font-weight: bold;">import</span> os
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>, <span style="color: #CC9393;">'simple-circuit-H-qiskit-meas.png'</span>)
+qc.draw(<span style="color: #CC9393;">"mpl"</span>, filename=figname)
+</code></pre>
+</div>
+
+
+<div id="org7ca42e6" class="figure">
+<p><img src="img/simple-circuit-X-qiskit-meas.png" alt="simple-circuit-X-qiskit-meas.png" />
+</p>
+<p><span class="figure-number">Figure 13: </span>A single-qubit is transformed from \(\ket{0}\) to \(\ket{+}\) and measured.</p>
+</div>
+<ul class="org-ul">
+<li>We now simulate this:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">run the sampler for several shots</span>
+<span style="color: #DFAF8F;">result</span> = sampler.run([qc], shots=1024).result()
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">get the counts from the classical register c</span>
+<span style="color: #DFAF8F;">counts</span> = result[0].data.c.get_counts()
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(counts)  <span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">{'1': 1024}</span>
+
+<span style="color: #DFAF8F;">fig</span> = plot_histogram(counts)
+
+<span style="color: #5F7F5F;">#</span><span style="color: #7F9F7F;">plt.show()</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If using a Jupyter notebook, use plt.show() and omit the following code:</span>
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>, <span style="color: #CC9393;">'simple-circuit-H-histogram.png'</span>)
+
+fig.savefig(figname, dpi=300, bbox_inches=<span style="color: #CC9393;">"tight"</span>)
+
+plt.close(<span style="color: #CC9393;">'all'</span>)
+</code></pre>
+</div>
+
+<pre class="example">
+{'0': 541, '1': 483}
+</pre>
+
+
+<div id="orge37d2ab" class="figure">
+<p><img src="img/simple-circuit-H-histogram.png" alt="simple-circuit-H-histogram.png" />
+</p>
+<p><span class="figure-number">Figure 14: </span>Results of a single-qubit circuit and measurement after transforming the prepared state \(\ket{0}\) to \(\ket{+}\).</p>
+</div>
+</div>
+</div>
+</div>
 <div id="outline-container-the-hamiltonian---a-very-important-operator" class="outline-3">
-<h3 id="the-hamiltonian---a-very-important-operator"><span class="section-number-3">3.5.</span> The Hamiltonian - a very important operator</h3>
+<h3 id="the-hamiltonian---a-very-important-operator"><span class="section-number-3">3.6.</span> The Hamiltonian - a very important operator</h3>
 <div class="outline-text-3" id="text-the-hamiltonian---a-very-important-operator">
 <ul class="org-ul">
 <li>The Hamiltonian, \(\hat{H}\), is an important operator because it
@@ -1732,7 +2118,7 @@ appears in two essentially important equations from quantum mechanics:
 The <b>time-dependent Schr�dinger equation</b> (TDSE),
 </p>
 \begin{equation}
-\label{org899a03e}
+\label{org82c26c4}
 \frac{d}{dt}\ket{\psi}=-\frac{i}{\hbar}\hat{H}\ket{\psi}
 \end{equation}
 <ul class="org-ul">
@@ -1745,7 +2131,7 @@ shown that the state at some later time \(t\) is
 </p>
 
 \begin{equation}
-\label{orga04aec5}
+\label{orgaa9e3a8}
 \ket{\psi\left(t\right)}=\exp\left(-\frac{i}{\hbar}\hat{H}t\right)\ket{\psi\left(0\right)}.
 \end{equation}
 <ul class="org-ul">
@@ -1753,7 +2139,7 @@ shown that the state at some later time \(t\) is
 This may often be written as
 </p>
 \begin{equation}
-\label{org6fb418e}
+\label{org1620f20}
 \ket{\psi\left(t\right)}=\hat{U}\left(t\right)\ket{\psi\left(0\right)},
 \end{equation}
 <p>
@@ -1761,7 +2147,7 @@ where
 </p>
 
 \begin{equation}
-\label{orgd6576ea}
+\label{org5984fd0}
 \hat{U}\left(t\right)=\exp\left(-\frac{i}{\hbar}\hat{H}t\right)
 \end{equation}</li>
 </ul></li>
@@ -1772,7 +2158,7 @@ where
 The <b>time-independent Schr�dinger equation</b>,
 </p>
 \begin{equation}
-\label{org7d889b0}
+\label{org4ab4ded}
 \hat{H}\ket{\psi_{n}}=E_{n}\ket{\psi_{n}}
 \end{equation}
 <p>
@@ -1823,9 +2209,9 @@ Hadamard operation and the Hamiltonian</li>
 </ul></li>
 <li>We will focus on the simpler of the two equations, the
 time-independent Schr�dinger equation of Equation
-\eqref{org7d889b0}
+\eqref{org4ab4ded}
 <ul class="org-ul">
-<li>Notice that Equation \eqref{org7d889b0} is nothing more than
+<li>Notice that Equation \eqref{org4ab4ded} is nothing more than
 an eigenvalue problem, with eigenvalues \(\left\{ E_{n}\right\}\)
 and eigenstates \(\left\{ \ket{\psi_{n}}\right\}\)</li>
 <li>In the context of quantum mechanics, the eigenvalues
@@ -1849,7 +2235,7 @@ energies"</li>
 </ul>
 </div>
 <div id="outline-container-the-electron-volt-a-unit-of-energy" class="outline-4">
-<h4 id="the-electron-volt-a-unit-of-energy"><span class="section-number-4">3.5.1.</span> The electron-volt: a Unit of Energy</h4>
+<h4 id="the-electron-volt-a-unit-of-energy"><span class="section-number-4">3.6.1.</span> The electron-volt: a Unit of Energy</h4>
 <div class="outline-text-4" id="text-the-electron-volt-a-unit-of-energy">
 <ul class="org-ul">
 <li>Electron-volts are more appropriate for quantum systems than Joules
@@ -1858,7 +2244,7 @@ energies"</li>
 Recall the Volt is an energy per unit charge:
 </p>
 \begin{equation}
-\label{orgcbf9d65}
+\label{org866a45e}
 1\;\text{V}=\frac{1\;\text{J}}{1\;\text{C}}
 \end{equation}
 <ul class="org-ul">
@@ -1875,7 +2261,7 @@ where
 </p>
 
 \begin{equation}
-\label{orgc53004a}
+\label{org395ca45}
 q_{e}=1.602\times10^{-19}\;\text{C}
 \end{equation}
 <ul class="org-ul">
@@ -1883,7 +2269,7 @@ q_{e}=1.602\times10^{-19}\;\text{C}
 Thus, we can covert eV to J:
 </p>
 \begin{equation}
-\label{org0ab9666}
+\label{org1e38a4b}
 1\;\text{eV}=\frac{1\;\text{J}}{1\;\text{C}}\left(1.602\times10^{-19}\;\text{C}\right)=1.602\times10^{-19}\;\text{J}
 \end{equation}</li>
 </ul></li>
@@ -1893,7 +2279,7 @@ Thus, we can covert eV to J:
 </div>
 </div>
 <div id="outline-container-the-matrix-elements-of-hath" class="outline-4">
-<h4 id="the-matrix-elements-of-hath"><span class="section-number-4">3.5.2.</span> The Matrix Elements of \(\hat{H}\)</h4>
+<h4 id="the-matrix-elements-of-hath"><span class="section-number-4">3.6.2.</span> The Matrix Elements of \(\hat{H}\)</h4>
 <div class="outline-text-4" id="text-the-matrix-elements-of-hath">
 <ul class="org-ul">
 <li>The matrix elements of \(\hat{H}\) have certain meanings</li>
@@ -1911,10 +2297,10 @@ eneriges for a transition of the system from state \(\ket{m}\) to
 state \(\ket{n}\)</li>
 </ul></li>
 </ul>
-<div class="note" id="org6ba4b1b">
+<div class="note" id="orgff759ce">
 <p>
 <b>Exercise 3.9</b>
-Consider the computational molecule of Figure <a href="#org6f2b3a5">8</a>.
+Consider the computational molecule of Figure <a href="#org7b3fbad">15</a>.
 Write the Hamiltonian for this two-state molecule given that state
 \(\ket{1}\) is an energy \(\Delta\) higher than state \(\ket{0}\), and
 the transition energy for \(\ket{0}\rightarrow\ket{1}\) or
@@ -1922,10 +2308,10 @@ the transition energy for \(\ket{0}\rightarrow\ket{1}\) or
 </p>
 
 
-<div id="org6f2b3a5" class="figure">
+<div id="org7b3fbad" class="figure">
 <p><img src="img/qca-two-state-system.png" alt="qca-two-state-system.png" />
 </p>
-<p><span class="figure-number">Figure 8: </span>The two states of a computational molecule. Black circles represent quantum dots, which trap a mobile charge. Two dots are separated by length \(a\), and the connecting bar denotes a tunneling path between the dots. A red disc represents a mobile electron. The system has two classical states, which encode a bit. Fixed neutralizing charge present on each dot is represented as green filling in the dot. This indicates the presence of \(+q_{e}/2\) on each dot. This keeps the molecules overall neutral, and we will not explicitly illustrate the neutralizing charge henceforth. Thus, when a mobile electron occupies a dot, the net charge on the dot is \(-q_{e}/2\). The other (unoccupied) dot has the fixed neutralizing charge uncovered, so its net charge is \(+q_{e}/2\).</p>
+<p><span class="figure-number">Figure 15: </span>The two states of a computational molecule. Black circles represent quantum dots, which trap a mobile charge. Two dots are separated by length \(a\), and the connecting bar denotes a tunneling path between the dots. A red disc represents a mobile electron. The system has two classical states, which encode a bit. Fixed neutralizing charge present on each dot is represented as green filling in the dot. This indicates the presence of \(+q_{e}/2\) on each dot. This keeps the molecules overall neutral, and we will not explicitly illustrate the neutralizing charge henceforth. Thus, when a mobile electron occupies a dot, the net charge on the dot is \(-q_{e}/2\). The other (unoccupied) dot has the fixed neutralizing charge uncovered, so its net charge is \(+q_{e}/2\).</p>
 </div>
 <details><summary>Show/hide solution...</summary>
 <p>
@@ -1946,7 +2332,7 @@ relationships:
 </p>
 
 \begin{equation}
-\label{org0e1515d}
+\label{org499e141}
 \braket{1|\hat{H}|1}-\braket{0|\hat{H}|0}=\Delta,
 \end{equation}
 <p>
@@ -1965,31 +2351,31 @@ between \(\braket{1|\hat{H}|1}\) and \(\braket{0|\hat{H}|0}\):
 </p>
 
 \begin{equation}
-\label{org348c466}
+\label{org3258dac}
 0\equiv\frac{1}{2}\left(\braket{1|\hat{H}|1}+\braket{0|\hat{H}|0}\right)
 \end{equation}
 <p>
 We can eliminate \(\braket{0|\hat{H}|0}\) using Equation
-\eqref{org0e1515d} to obtain
+\eqref{org499e141} to obtain
 \(\braket{1|\hat{H}|1}-\Delta=\braket{0|\hat{H}|0}\) so that Equation
-\eqref{org348c466} becomes
+\eqref{org3258dac} becomes
 </p>
 \begin{equation}
 0\equiv\frac{1}{2}\left(\braket{1|\hat{H}|1}+\braket{1|\hat{H}|1}-\Delta\right)\quad\rightarrow\quad\braket{1|\hat{H}|1}=\frac{\Delta}{2}.
 \end{equation}
 <p>
-Similarly, we can use Equation \eqref{org0e1515d} to obtain
+Similarly, we can use Equation \eqref{org499e141} to obtain
 \(\braket{1|\hat{H}|1}=\braket{0|\hat{H}|0}+\Delta\), which gives us
 </p>
 \begin{equation}
 0\equiv\frac{1}{2}\left(\braket{0|\hat{H}|0}+\Delta+\braket{0|\hat{H}|0}\right)\quad\rightarrow\quad\braket{0|\hat{H}|0}=-\frac{\Delta}{2}
 \end{equation}
 <p>
-Thus, we can use Equations \eqref{org0075100} and
-\eqref{org5197d93} to write the Hamiltonian as
+Thus, we can use Equations \eqref{org435da6e} and
+\eqref{orgae573ce} to write the Hamiltonian as
 </p>
 \begin{equation}
-\label{org604c1dd}
+\label{orged186b1}
 \hat{H}=\left[\begin{array}{cc}
 -\frac{\Delta}{2} & -\gamma\\
 -\gamma & \frac{\Delta}{2}
@@ -1999,7 +2385,7 @@ Thus, we can use Equations \eqref{org0075100} and
 Here,
 we have used \(\sigma_{x}\) and \(\sigma_{z}\) to write the Hamiltonian
 in a nicer form. Notice that we are using the quantum mechanics
-convention of Equation \eqref{org5197d93}.
+convention of Equation \eqref{orgae573ce}.
 </p>
 </details>
 
@@ -2007,7 +2393,7 @@ convention of Equation \eqref{org5197d93}.
 </div>
 </div>
 <div id="outline-container-the-ground-state" class="outline-4">
-<h4 id="the-ground-state"><span class="section-number-4">3.5.3.</span> The Ground State</h4>
+<h4 id="the-ground-state"><span class="section-number-4">3.6.3.</span> The Ground State</h4>
 <div class="outline-text-4" id="text-the-ground-state">
 <ul class="org-ul">
 <li>The physics of the real world dictate that there is a <b>lowest
@@ -2025,11 +2411,11 @@ oscillator), we usually label the ground state energy \(E_{0}\)</li>
 state energy \(E_{0}\) or \(E_{1}\) is called the <b>ground state</b>.</li>
 </ul></li>
 </ul>
-<div class="note" id="orgb172118">
+<div class="note" id="orga00319d">
 <p>
 <b>Exercise 3.10</b>
 Calculate the ground state of the molecule from Figure
-<a href="#org6f2b3a5">8</a> by hand.
+<a href="#org7b3fbad">15</a> by hand.
 </p>
 <details><summary>Show/hide solution...</summary>
 <p>
@@ -2077,13 +2463,13 @@ E_{2} & =\frac{1}{2}\sqrt{\Delta^{2}+4\gamma^{2}}
 \end{equation}
 <p>
 Now that we have \(E_{1}\), we can use it in Equation
-\eqref{org7d889b0} along with \(\hat{H}\) to find
+\eqref{org4ab4ded} along with \(\hat{H}\) to find
 \(\ket{\psi_{1}}\). Write the time-independent Schr�dinger equation for
 \(E_{1}\) and \(\ket{\psi_{1}}\):
 </p>
 
 \begin{equation}
-\label{org9dffb35}
+\label{org0431f4a}
 \begin{aligned}
 \hat{H}\ket{\psi_{1}} & =E_{1}\ket{\psi_{1}}\nonumber \\
 & \downarrow\nonumber \\
@@ -2107,7 +2493,7 @@ If we take \(b=1\), then
 </p>
 
 \begin{equation}
-\label{orgc819c73}
+\label{org600f958}
 a=\frac{\Delta+\sqrt{\Delta^{2}+4\gamma^{2}}}{2\gamma}
 \end{equation}
 <p>
@@ -2127,7 +2513,7 @@ We need to normalize this:
 </p>
 
 \begin{equation}
-\label{org04574e2}
+\label{orgff9fb52}
 \ket{\psi_{0}^{\prime}}=\frac{\ket{\psi_{0}}}{\sqrt{\braket{\psi_{0}|\psi_{0}}}}=\frac{1}{\sqrt{a^{2}+1}}\left[\begin{array}{c}
 a\\
 1
@@ -2136,8 +2522,8 @@ a\\
 <p>
 We could write the normalized ground state out in
 greater detail by substituting
-\eqref{orgc819c73} into Equation
-\eqref{org04574e2}, but things
+\eqref{org600f958} into Equation
+\eqref{orgff9fb52}, but things
 would just get messier, so let's not. It can be shown that the
 probability of measuring 0 and 1 are as follows:
 </p>
@@ -2149,7 +2535,7 @@ p\left(1\right) & =\frac{1}{a^{2}+1}=\frac{1}{2}\left(1-\frac{\Delta}{\sqrt{4\ga
 \end{equation}
 <p>
 Recall that we are using the quantum mechanics
-convention of Equation \eqref{org5197d93} for \(\mathbf{Z}\).
+convention of Equation \eqref{orgae573ce} for \(\mathbf{Z}\).
 </p>
 </details>
 
@@ -2157,7 +2543,7 @@ convention of Equation \eqref{org5197d93} for \(\mathbf{Z}\).
 </div>
 </div>
 <div id="outline-container-expectation-values" class="outline-4">
-<h4 id="expectation-values"><span class="section-number-4">3.5.4.</span> Expectation Values</h4>
+<h4 id="expectation-values"><span class="section-number-4">3.6.4.</span> Expectation Values</h4>
 <div class="outline-text-4" id="text-expectation-values">
 <ul class="org-ul">
 <li><p>
@@ -2167,7 +2553,7 @@ let \(\mathbf{Q}\) have eigenvalues \(q\) with associated eigenstates
 </p>
 
 \begin{equation}
-\label{org9b87adc}
+\label{orgab282c6}
 \mathbf{Q}\ket{q}=q\ket{q}
 \end{equation}</li>
 <li>The eigenvalues \(\left\{ q\right\}\) are the only possible results of
@@ -2185,7 +2571,7 @@ system:
 </p>
 
 \begin{equation}
-\label{org4902ad9}
+\label{org7607ad2}
 \braket{q|q^{\prime}}=\delta_{q,q^{\prime}}=\begin{cases}
 1, & q=q^{\prime}\\
 0, & q\neq q^{\prime}
@@ -2197,7 +2583,7 @@ An arbitrary state \(\ket{\psi}\) may be expanded over the eigenbasis
 </p>
 
 \begin{equation}
-\label{orgbea610f}
+\label{org79d343e}
 \ket{\psi}=\sum_{q}c_{q}\ket{q},
 \end{equation}
 <p>
@@ -2206,7 +2592,7 @@ are amplitudes, and the probability for measuring \(q\) is given by
 </p>
 
 \begin{equation}
-\label{org0585cbc}
+\label{org9e666cc}
 p\left(q\right)=\left|c_{q}\right|^{2}=c_{q}^{\ast}c_{q}
 \end{equation}
 <ul class="org-ul">
@@ -2224,7 +2610,7 @@ is defined as
 </p>
 
 \begin{equation}
-\label{orge2975b1}
+\label{org55cac61}
 \braket{\mathbf{Q}}=\braket{\psi|\mathbf{Q}|\psi}
 \end{equation}
 <ul class="org-ul">
@@ -2242,9 +2628,9 @@ Expand this using Equation
 \end{equation}
 <ul class="org-ul">
 <li>Here, we used
-\eqref{org9b87adc},
-\eqref{org4902ad9},
-and \eqref{org0585cbc}</li>
+\eqref{orgab282c6},
+\eqref{org7607ad2},
+and \eqref{org9e666cc}</li>
 </ul></li>
 </ul></li>
 <li>The astute reader will understand what is happening here:
@@ -2264,7 +2650,7 @@ simply the expectation value of \(\mathbf{Q}\)</li>
 </ul></li>
 </ul></li>
 </ul>
-<div class="note" id="org7fe3ab3">
+<div class="note" id="org7265a38">
 <p>
 <b>Exercise 3.11</b>
 Calculate \(\braket{\mathbf{Z}}\) for the following wave functions:
@@ -2273,127 +2659,42 @@ Calculate \(\braket{\mathbf{Z}}\) for the following wave functions:
 <li><p>
 \(\ket{\psi}=c_{0}\ket{0}+c_{1}\ket{1}\).<br />
 </p>
-<details><summary>Show/hide solution...</summary>We can do
+<details><summary>Show/hide solution...</summary>We recall
 <p>
-this by finding the eigenvalues and the eigenvectors of \(\hat{H}\).
-To find the eigenvalues, use
+that the matrix representation for \(\ket{\psi}\) is
 </p>
 \begin{equation}
-\det\left(\hat{H}-E_{n}\mathbf{1}\right)=0
+\ket{\psi}\leftrightarrow\left[\begin{array}{c}
+      c_{0}\\
+      c_{1}
+      \end{array}\right].
 \end{equation}
 <p>
-Using the elements of
-\(\hat{H}\) we found, we write
+Thus, we can find the expectation value using
+linear algebra:
 </p>
 \begin{equation}
 \begin{aligned}
-      0 & =\det\left(\hat{H}-E_{n}\mathbf{1}\right)=\det\left(\left[\begin{array}{cc}
-      -\frac{\Delta}{2} & -\gamma\\
-      -\gamma & \frac{\Delta}{2}
-      \end{array}\right]-E_{n}\left[\begin{array}{cc}
+      \Braket{\mathbf{Z}} & =\left[\begin{array}{cc}
+      c_{0}^{\ast} & c_{1}^{\ast}\end{array}\right]\left[\begin{array}{cc}
       1 & 0\\
-      0 & 1
-      \end{array}\right]\right)=\left|\begin{array}{cc}
-      -\frac{\Delta}{2}-E_{n} & -\gamma\\
-      -\gamma & \frac{\Delta}{2}-E_{n}
-      \end{array}\right|\\
-       & =\left(-\frac{\Delta}{2}-E_{n}\right)\left(\frac{\Delta}{2}-E_{n}\right)-\gamma^{2}\\
-       & =-\frac{\Delta^{2}}{4}+E_{n}^{2}-\gamma^{2}
+      0 & -1
+      \end{array}\right]\left[\begin{array}{c}
+      c_{0}\\
+      c_{1}
+      \end{array}\right]\\
+       & =\left[\begin{array}{cc}
+      c_{0}^{\ast} & c_{1}^{\ast}\end{array}\right]\left[\begin{array}{c}
+      c_{0}\\
+      -c_{1}
+      \end{array}\right]\\
+       & =c_{0}^{\ast}c_{0}-c_{1}^{\ast}c_{1}
       \end{aligned}
 \end{equation}
 <p>
-so that
-</p>
-\begin{equation}
-E_{n}=\pm\sqrt{\frac{\Delta^{2}}{4}+\gamma^{2}}=\pm\frac{1}{2}\sqrt{\Delta^{2}+4\gamma^{2}}
-\end{equation}
-<p>
-The ground state energy, \(E_{1}\), is the lower of these values, and
-the first excited state energy is higher:
-</p>
-\begin{equation}
-\begin{aligned}
-      E_{1} & =-\frac{1}{2}\sqrt{\Delta^{2}+4\gamma^{2}}\\
-      E_{2} & =\frac{1}{2}\sqrt{\Delta^{2}+4\gamma^{2}}
-      \end{aligned}
-\end{equation}
-<p>
-Now that we have \(E_{1}\), we can use it in Equation
-\eqref{org7d889b0} along with \(\hat{H}\) to find
-\(\ket{\psi_{1}}\). Write the time-independent Schr�dinger equation
-for \(E_{1}\) and \(\ket{\psi_{1}}\):
-</p>
-
-\begin{equation}
-\label{org2cce1d6}
- \begin{aligned}
-       \hat{H}\ket{\psi_{1}} & =E_{1}\ket{\psi_{1}}\nonumber \\
-        & \downarrow\nonumber \\
-       \left[\begin{array}{cc}
-       -\frac{\Delta}{2} & -\gamma\\
-       -\gamma & \frac{\Delta}{2}
-       \end{array}\right]\left[\begin{array}{c}
-       a\\
-       b
-       \end{array}\right] & =-\frac{1}{2}\sqrt{\Delta^{2}+4\gamma^{2}}\left[\begin{array}{c}
-       a\\
-       b
-       \end{array}\right]\nonumber \\
-        & \downarrow\nonumber \\
-       -\frac{\Delta}{2}a-\gamma b & =-a\frac{1}{2}\sqrt{\Delta^{2}+4\gamma^{2}}\\
-       -\gamma a+\frac{\Delta}{2}b & =-b\frac{1}{2}\sqrt{\Delta^{2}+4\gamma^{2}}
-       \end{aligned}
-\end{equation}
-<p>
-If we take \(b=1\), then
-</p>
-
-\begin{equation}
-\label{orgd93d434}
- a=\frac{\Delta+\sqrt{\Delta^{2}+4\gamma^{2}}}{2\gamma}
-\end{equation}
-<p>
-so that
-</p>
-\begin{equation}
- \ket{\psi_{0}}=\left[\begin{array}{c}
-       a\\
-       b
-       \end{array}\right]=\left[\begin{array}{c}
-       a\\
-       1
-       \end{array}\right]=a\ket{0}+\ket{1}.
-\end{equation}
-<p>
-We need to normalize this:
-</p>
-
-\begin{equation}
-\label{org48d6fe9}
- \ket{\psi_{0}^{\prime}}=\frac{\ket{\psi_{0}}}{\sqrt{\braket{\psi_{0}|\psi_{0}}}}=\frac{1}{\sqrt{a^{2}+1}}\left[\begin{array}{c}
-       a\\
-       1
-       \end{array}\right]
-\end{equation}
-<p>
-We could write the normalized ground state out
-in greater detail by substituting
-\eqref{orgd93d434} into
-Equation
-\eqref{org48d6fe9}, but
-things would just get messier, so let's not. It can be shown that the
-probability of measuring 0 and 1 are as follows:
-</p>
-\begin{equation}
- \begin{aligned}
-       p\left(0\right) & =\frac{a^{2}}{a^{2}+1}=\frac{1}{2}\left(1+\frac{\Delta}{\sqrt{4\gamma^{2}+\Delta^{2}}}\right)\\
-       p\left(1\right) & =\frac{1}{a^{2}+1}=\frac{1}{2}\left(1-\frac{\Delta}{\sqrt{4\gamma^{2}+\Delta^{2}}}\right)
-       \end{aligned}
-\end{equation}
-<p>
-Recall that we are using the quantum mechanics
-convention of Equation \eqref{org5197d93} for
-\(\mathbf{Z}\).<br />
+We also can recognize
+\(c_{k}^{\ast}c_{k}=p\left(k\right)\) as the probability for
+measuring \(\ket{k}\), where \(k=\left\{ 0,1\right\}\).<br />
 </p>
 </details></li>
 <li><p>
@@ -2405,13 +2706,13 @@ convention of Equation \eqref{org5197d93} for
 the computational basis:
 </p>
 \begin{equation}
- \ket{\psi}\leftrightarrow\left[\begin{array}{c}
-       1\\
-       0
-       \end{array}\right];\qquad\mathbf{Z}\leftrightarrow\left[\begin{array}{cc}
-       1 & 0\\
-       0 & -1
-       \end{array}\right]
+\ket{\psi}\leftrightarrow\left[\begin{array}{c}
+      1\\
+      0
+      \end{array}\right];\qquad\mathbf{Z}\leftrightarrow\left[\begin{array}{cc}
+      1 & 0\\
+      0 & -1
+      \end{array}\right]
 \end{equation}
 <p>
 Thus: \[\begin{aligned}
@@ -2434,13 +2735,13 @@ Thus: \[\begin{aligned}
 the computational basis:
 </p>
 \begin{equation}
- \ket{\psi}\leftrightarrow\left[\begin{array}{c}
-       0\\
-       1
-       \end{array}\right];\qquad\mathbf{Z}\leftrightarrow\left[\begin{array}{cc}
-       1 & 0\\
-       0 & -1
-       \end{array}\right]
+\ket{\psi}\leftrightarrow\left[\begin{array}{c}
+      0\\
+      1
+      \end{array}\right];\qquad\mathbf{Z}\leftrightarrow\left[\begin{array}{cc}
+      1 & 0\\
+      0 & -1
+      \end{array}\right]
 \end{equation}
 <p>
 Thus: \[\begin{aligned}
@@ -2458,19 +2759,19 @@ Thus: \[\begin{aligned}
 
 </div>
 
-<div class="note" id="orgacf1721">
+<div class="note" id="orgd113ebf">
 <p>
 <b>Exercise 3.12</b>
 Calculate the (normalized) ground state, \(\ket{\psi_{0}^{\prime}}\) of
-the molecule from Figure <a href="#org6f2b3a5">8</a> using Python. Let
+the molecule from Figure <a href="#org7b3fbad">15</a> using Python. Let
 \(\gamma=0.05\;\text{eV}\), and choose different values of \(\Delta\)
 over the domain \(-0.5\;\text{eV}<\Delta<0.5\;\text{eV}\). For each
 value of \(\Delta,\) plot the polarization,
 \(P=\braket{\psi_{0}^{\prime}|\sigma_{z}|\psi_{0}^{\prime}}\). See
 Equations
-\eqref{org604c1dd},
-\eqref{orgc819c73}, and
-\eqref{org04574e2}.
+\eqref{orged186b1},
+\eqref{org600f958}, and
+\eqref{orgff9fb52}.
 </p>
 <details><summary>Show/hide solution...</summary>
 <p>
@@ -2483,7 +2784,7 @@ The Python code used to produce this figure is shown below. We can
 observe that whenever \(\Delta>0\), the QCA cell favors state "0"; but,
 when \(\Delta<1\), the QCA cell favors state "1". This makes sense
 because \(\Delta\) is the energy difference between states 1 and 0 for
-the cell (see Equation \eqref{org0e1515d}. The cell
+the cell (see Equation \eqref{org499e141}. The cell
 prefers the lower-energy configuration.
 </p>
 <div class="org-src-container">
@@ -2757,7 +3058,7 @@ system relaxes to the ground state</li>
 <li>Rather, we will focus on calculating the ground state of a device or a
 circuit</li>
 </ul>
-<div class="note" id="orgacdd44e">
+<div class="note" id="orgcfa33c1">
 <p>
 <b>Exercise 3.13</b>
 Repeat Exercise 3.12, but this time, perform the calculation using
@@ -2775,7 +3076,7 @@ basics of quantum mechanics and quantum information processing.
 
 </div>
 
-<div class="note" id="orgc082932">
+<div class="note" id="org0c07c6e">
 <p>
 <b>Exercise 3.14</b>
 In Exercise 3.12, calculated the ground state of an isolated QCA cell,
@@ -2801,14 +3102,15 @@ electron is \(-q_{e}\).
 We already know that \(P_{drv}=1\) means that the mobile electron
 occupies dot 1 for the driver, and that \(P_{drv}=-1\) means that the
 electron occupies dot 0 for the driver. What does a polarization
-\(-1<P_{drv}<1\) mean? It means that the driver isn't in state "0" with
-absolute certainty, and neither is it in state "1" with absolute
-certainty. To calculate the effects of the driver cell charge on target
-cell, we make the mean-field approximation. This means that we assume
-that the overall electric field
-\(\mathbf{E}_{drv}\left(\mathbf{r}\right)\) created from the driver is a
-combination of the fields created from the driver in state "0" and the
-driver in state "1", \(\mathbf{E}_{drv}\left(\mathbf{r}\right)\) and
+\(-1\lt P_{drv}\lt1\) mean? It means that the driver isn't in state "0"
+with absolute certainty, and neither is it in state "1" with absolute
+certainty.<br />
+To calculate the effects of the driver cell charge on target cell, we
+make the mean-field approximation. This means that we assume the overall
+electric field \(\mathbf{E}_{drv}\left(\mathbf{r}\right)\) created from
+the driver is a combination of the fields created from the driver in
+state "0" and the driver in state "1",
+\(\mathbf{E}_{drv,0}\left(\mathbf{r}\right)\) and
 \(\mathbf{E}_{drv,1}\left(\mathbf{r}\right)\):
 </p>
 \begin{equation}
@@ -2830,13 +3132,13 @@ Recall that the potential energy between two charges \(q_{1}\) and
 </p>
 
 \begin{equation}
-\label{org0d2b3c5}
+\label{org5c20b33}
 U=q_{2}\mathbf{E}_{1}\left(\mathbf{r}_{2}\right)=\frac{q_{1}q_{2}}{4\pi\varepsilon_{0}\left|\mathbf{r}_{2}-\mathbf{r}_{1}\right|},
 \end{equation}
 <p>
 where \(\mathbf{r}_{1}\) and \(\mathbf{r}_{2}\) are the position of
 \(q_{1}\) and \(q_{2}\), respectively, and the field from charge 1 at
-some arbitrary point is
+some arbitrary point \(\mathbf{r}\) is
 </p>
 \begin{equation}
 \mathbf{E}_{1}\left(\mathbf{r}\right)=\frac{q_{1}}{4\pi\varepsilon_{0}\left|\mathbf{r}_{1}-\mathbf{r}\right|}
@@ -2854,7 +3156,7 @@ mean-field approximation:
 \end{aligned}
 \end{equation}
 <p>
-Here, we have negative signs becasue we're assuming we
+Here, we have negative signs because we're assuming we
 have a mobile driver electron of charge \(-q_{e}\). In this mean-field
 approximation, we can treat \(-p_{drv}\left(0\right)q_{e}\) and
 \(-p_{drv}\left(1\right)q_{e}\) as effective fractional electrons
@@ -2903,11 +3205,11 @@ on dot zero:
 </p>
 
 \begin{equation}
-\label{org380a322}
+\label{org72c3bb8}
 U_{1,\text{fnc}}=U_{0,\text{fnc}}.
 \end{equation}
 <p>
-Next, we calcuate the potential
+Next, we calculate the potential
 energy \(U_{1,\text{mc}}\) of the target cell electron to be on dot 1 of
 the target cell due to the mobile charge of the driver:
 </p>
@@ -2919,7 +3221,7 @@ Thus, if we want to calculate \(\Delta,\)we have
 </p>
 
 \begin{equation}
-\label{org1a56333}
+\label{org8e8391b}
 \begin{aligned}
 \Delta & =\braket{1|\hat{H}|1}-\braket{0|\hat{H}|0}=\cancel{U_{1,\text{fnc}}}+U_{1,\text{mc}}-\cancel{U_{0,\text{fnc}}}-U_{0,\text{mc}}\nonumber \\
  & \stackrel{\left(\ref{eq:DQD_FNC_potential}\right)}{=}U_{1,\text{mc}}-U_{0,\text{mc}}\nonumber \\
@@ -2935,7 +3237,7 @@ where
 </p>
 
 \begin{equation}
-\label{orgdf628ad}
+\label{org995c174}
 \kappa=-\left(\frac{1}{\sqrt{2}}-1\right)\frac{q_{e}^{2}}{4\pi\varepsilon_{0}a}=\left(1-\frac{1}{\sqrt{2}}\right)\frac{q_{e}^{2}}{4\pi\varepsilon_{0}a}.
 \end{equation}
 <p>
@@ -2947,7 +3249,7 @@ geometric and physical constants:
 </p>
 
 \begin{equation}
-\label{orgdcf8e2b}
+\label{orgdcaabe1}
 \Delta\left(P_{\text{drv}}\right)=\left(1-\frac{1}{\sqrt{2}}\right)\frac{q_{e}^{2}}{4\pi\varepsilon_{0}a}P_{\text{drv}}.
 \end{equation}
 <div class="org-src-container">
@@ -3010,7 +3312,7 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 
 </div>
 
-<div class="note" id="orgd21ab06">
+<div class="note" id="orge7700b6">
 <p>
 This demo shows how a double-dot QCA cell responds to a neighboring
 driver cell. Drag the slider to set the driver polarization
@@ -3142,7 +3444,7 @@ draw();
 
 </div>
 
-<div class="note" id="org42cfd92">
+<div class="note" id="orge8c9903">
 <p>
 <b>Exercise 3.15</b>
 Determine the cost of a bit flip, given a fully-polarized driver.
@@ -3150,7 +3452,7 @@ Determine the cost of a bit flip, given a fully-polarized driver.
 <details><summary>Show/hide solution...</summary>
 <p>
 Suppose that \(P_{\text{drv}}=1\). Then, Equation
-\eqref{orgdcf8e2b} gives us
+\eqref{orgdcaabe1} gives us
 </p>
 \begin{equation}
 \Delta\left(1\right)=\left(1-\frac{1}{\sqrt{2}}\right)\frac{q_{e}^{2}}{4\pi\varepsilon_{0}a}\left(1\right).
@@ -3166,7 +3468,7 @@ mean? Recall that \(\Delta\) is the potential energy by which
 must be added to the system to force the target cell to take state
 \(\ket{1}\).<br />
 On the other hand, if \(P_{\text{drv}}=-1\), Equation
-\eqref{orgdcf8e2b} gives us
+\eqref{orgdcaabe1} gives us
 </p>
 \begin{equation}
 \Delta\left(-1\right)=-\left(1-\frac{1}{\sqrt{2}}\right)\frac{q_{e}^{2}}{4\pi\varepsilon_{0}a}.
@@ -3182,7 +3484,7 @@ and we call it the kink energy,
 </p>
 
 \begin{equation}
-\label{org1d1941e}
+\label{org1f3f59a}
 E_{k}=\left(1-\frac{1}{\sqrt{2}}\right)\frac{q_{e}^{2}}{4\pi\varepsilon_{0}a}.
 \end{equation}
 <p>
@@ -3199,7 +3501,7 @@ For a cell with \(a=1\;\text{nm}\), we calculate
 </div>
 </div>
 <div id="outline-container-quantum-information-processing" class="outline-3">
-<h3 id="quantum-information-processing"><span class="section-number-3">3.6.</span> Quantum Information Processing</h3>
+<h3 id="quantum-information-processing"><span class="section-number-3">3.7.</span> Quantum Information Processing</h3>
 <div class="outline-text-3" id="text-quantum-information-processing">
 <ul class="org-ul">
 <li>We've considered some operators now, from different contexts
@@ -3232,7 +3534,7 @@ we can form the operator
 </p>
 
 \begin{equation}
-\label{org4f8d66f}
+\label{orgcb6fa84}
 \hat{\rho}=\ket{\psi}\bra{\psi}=\begin{bmatrix}c_{0}\\
 c_{1}
 \end{bmatrix}\left[\begin{array}{cc}
@@ -3251,13 +3553,13 @@ For an operator \(\mathbf{O}\), the expectation value
 </p>
 
 \begin{equation}
-\label{org0e0ff7c}
+\label{org607d9f0}
 \Braket{\mathbf{O}}=\text{Tr}\;\left(\mathbf{O}\hat{\rho}\right)=\text{Tr}\;\left(\hat{\rho}\mathbf{O}\right)=\sum_{j}\Braket{j|\mathbf{O}\hat{\rho}|j}=\sum_{j}\Braket{j|\hat{\rho}\mathbf{O}|j}
 \end{equation}
 <ul class="org-ul">
 <li>This expression is completely equivalent to the expectation value
 of Equation
-\eqref{orge2975b1}</li>
+\eqref{org55cac61}</li>
 <li><p>
 A property that sometimes comes in useful for the trace is that we
 can cyclically permute the operators in a trace and still get the
@@ -3265,7 +3567,7 @@ same value:
 </p>
 
 \begin{equation}
-\label{orgc3e73d4}
+\label{orgb0396e6}
 \text{Tr}\;\left(\mathbf{A}\mathbf{B}\mathbf{C}\right)=\text{Tr}\;\left(\mathbf{C}\mathbf{A}\mathbf{B}\right)=\text{Tr}\;\left(\mathbf{B}\mathbf{C}\mathbf{A}\right)
 \end{equation}
 <ul class="org-ul">
@@ -3274,18 +3576,18 @@ from one end of the product to the other</li>
 </ul></li>
 <li><p>
 For a product of two operators, Equation
-\eqref{orgc3e73d4}
+\eqref{orgb0396e6}
 reduces to
 </p>
 
 \begin{equation}
-\label{orge98fccf}
+\label{orgd06db6f}
 \text{Tr}\;\left(\mathbf{A}\mathbf{B}\right)=\text{Tr}\;\left(\mathbf{B}\mathbf{A}\right)
 \end{equation}</li>
 </ul></li>
 </ul></li>
 </ul>
-<div class="note" id="org70519c6">
+<div class="note" id="orge18c03f">
 <p>
 <b>Exercise 3.17</b>
 Write a Python function that converts a ket to a density operator.
@@ -3378,7 +3680,7 @@ We can expand any single-qubit density operator over the matrices
 </p>
 
 \begin{equation}
-\label{org5ded040}
+\label{orgde650e5}
 \hat{\rho}=\frac{1}{2}\left(a_{0}\mathbf{1}+a_{x}\hat{\sigma}_{x}+a_{y}\hat{\sigma}_{y}+a_{z}\hat{\sigma}_{z}\right)
 \end{equation}
 <p>
@@ -3389,7 +3691,7 @@ with real coefficients \(\{a_{0},a_{1},a_{2},a_{3}\}\)
 For a simpler notation, we will define
 </p>
 \begin{equation}
-\label{org85f729a}
+\label{org4d36c52}
 \hat{\sigma}_{0}=\mathbf{1},\quad\hat{\sigma}_{1}=\hat{\sigma}_{x},\quad\hat{\sigma}_{2}=\hat{\sigma}_{y},\quad\mbox{and}\quad\hat{\sigma}_{3}=\hat{\sigma}_{z},
 \end{equation}
 <p>
@@ -3397,7 +3699,7 @@ and we rewrite our expansion as
 </p>
 
 \begin{equation}
-\label{org47af5bc}
+\label{org0487f70}
 \hat{\rho}=\sum_{k=0}^{3}\frac{1}{2}a_{k}\hat{\sigma}_{k}
 \end{equation}</li>
 <li><p>
@@ -3406,7 +3708,7 @@ follows:
 </p>
 
 \begin{equation}
-\label{org8496224}
+\label{orgc69614a}
 a_{k}=\mbox{Tr}\;\left(\hat{\rho}\hat{\sigma}_{k}\right)\stackrel{\left(\ref{eq:ExpectationValueDensityMatrix}\right)}{=}\Braket{\hat{\sigma}_{k}}
 \end{equation}</li>
 <li>For any normalized \(\ket{\psi}\), \(a_{0}=1\), so this doesn't tell
@@ -3424,7 +3726,7 @@ using \(a_{1}\), \(a_{2}\), and \(a_{3}\)</li>
 Thus, in this example, our Bloch vector is
 </p>
 \begin{equation}
-\label{org4cd6c71}
+\label{org9b7a952}
 \vec{\lambda}\equiv\begin{bmatrix}a_{1}\\
 a_{2}\\
 a_{3}
@@ -3437,11 +3739,11 @@ formalism as
 </p>
 
 \begin{equation}
-\label{orga9f0418}
+\label{orgd65d8a4}
 a_{k}=\braket{\hat{\sigma}_{k}}=\braket{\psi|\hat{\sigma}_{k}|\psi}
 \end{equation}</li>
 </ul>
-<div class="note" id="orgc1ba69d">
+<div class="note" id="orge17d7ec">
 <p>
 <b>Exercise 3.18</b>
 Write a Python functions to do the following:
@@ -3450,7 +3752,7 @@ Write a Python functions to do the following:
 <li>Convert a ket to a density operator</li>
 <li>Convert a ket to a Bloch vector
 See Equation
-\eqref{org4f8d66f}. Do
+\eqref{orgcb6fa84}. Do
 your work in Python.</li>
 </ol>
 <details><summary>Show/hide solution...</summary>
@@ -3525,14 +3827,14 @@ The solution code is given below:
 
 </div>
 
-<div class="note" id="org00cc363">
+<div class="note" id="orgd786628">
 <p>
 <b>Exercise 3.19</b>
 Visualize the Bloch vector for the following states: \(\ket{0}\),
 \(\ket{1}\), \(\ket{+}\), and \(\ket{-}\).
 See Equation
-\eqref{org4f8d66f} and
-\eqref{org8496224}.
+\eqref{orgcb6fa84} and
+\eqref{orgc69614a}.
 </p>
 <details><summary>Show/hide solution...</summary>
 <p>
@@ -3654,34 +3956,34 @@ sys.path.append(pydir)
 </div>
 <div class="org-center">
 
-<div id="orgcfbce7c" class="figure">
+<div id="orgecff867" class="figure">
 <p><img src="img/BV0.png" alt="BV0.png" />
 </p>
-<p><span class="figure-number">Figure 9: </span>The Bloch vector for \(\ket{0}\).</p>
+<p><span class="figure-number">Figure 16: </span>The Bloch vector for \(\ket{0}\).</p>
 </div>
 </div>
 <div class="org-center">
 
-<div id="orgadea44b" class="figure">
+<div id="orgb76e8f0" class="figure">
 <p><img src="../../../../Research/QuantComp/QMechQInfo/lyx/img/BV1.png" alt="BV1.png" />
 </p>
-<p><span class="figure-number">Figure 10: </span>The Bloch vector for \(\ket{1}\).</p>
+<p><span class="figure-number">Figure 17: </span>The Bloch vector for \(\ket{1}\).</p>
 </div>
 </div>
 <div class="org-center">
 
-<div id="orgc9d52cc" class="figure">
+<div id="orgc2925f5" class="figure">
 <p><img src="../../../../Research/QuantComp/QMechQInfo/lyx/img/BVplus.png" alt="BVplus.png" />
 </p>
-<p><span class="figure-number">Figure 11: </span>The Bloch vector for \(\ket{+}\).</p>
+<p><span class="figure-number">Figure 18: </span>The Bloch vector for \(\ket{+}\).</p>
 </div>
 </div>
 <div class="org-center">
 
-<div id="org2f08c9d" class="figure">
+<div id="org7df9b60" class="figure">
 <p><img src="../../../../Research/QuantComp/QMechQInfo/lyx/img/BVminus.png" alt="BVminus.png" />
 </p>
-<p><span class="figure-number">Figure 12: </span>The Bloch vector for \(\ket{-}\).</p>
+<p><span class="figure-number">Figure 19: </span>The Bloch vector for \(\ket{-}\).</p>
 </div>
 </div>
 </details>
@@ -3699,7 +4001,7 @@ exponential of \(\mathbf{X}\):
 </p>
 
 \begin{equation}
-\label{org6c44da1}
+\label{org6bbc9a1}
 \mathbf{R}_{x}\left(\theta_{x}\right)=\exp\left(-i\frac{\theta_{x}}{2}\mathbf{X}\right)=\begin{bmatrix}\cos\left(\theta_{x}/2\right) & -i\sin\left(\theta_{x}/2\right)\\
 -i\sin\left(\theta_{x}/2\right) & \cos\left(\theta_{x}/2\right)
 \end{bmatrix}.
@@ -3714,16 +4016,16 @@ about the \(\hat{z}\) axis in the Bloch sphere, and
 rotation about the \(\hat{y}\) axis in the Bloch sphere</li>
 </ul></li>
 </ul>
-<div class="note" id="org30e5b60">
+<div class="note" id="org6248785">
 <p>
 <b>Exercise 3.20</b>
 Perform and rotations of \(\ket{0}\) about the \(\hat{x}\) axis through
 the angles \(\pi/4\), \(\pi/2\), \(3\pi/4\), \(\pi\), \(5\pi/4\), and
 \(3\pi/2\).
 See Equation
-\eqref{org4f8d66f},
-\eqref{org8496224},
-\eqref{org6c44da1}.
+\eqref{orgcb6fa84},
+\eqref{orgc69614a},
+\eqref{org6bbc9a1}.
 </p>
 <details><summary>Show/hide solution...</summary>
 <p>
@@ -3969,16 +4271,16 @@ Rotations about \(\hat{x}\) are shown in Figure
 </p>
 
 
-<div id="orgc72a44f" class="figure">
+<div id="org7039100" class="figure">
 <p><img src="img/RotateXvaried.png" alt="RotateXvaried.png" />
 </p>
-<p><span class="figure-number">Figure 13: </span>Various rotations about \(\hat{x}\).</p>
+<p><span class="figure-number">Figure 20: </span>Various rotations about \(\hat{x}\).</p>
 </div>
 
-<div id="org7b5d7c3" class="figure">
+<div id="org8f7653e" class="figure">
 <p><img src="img/RotateZvaried.png" alt="RotateZvaried.png" />
 </p>
-<p><span class="figure-number">Figure 14: </span>Various rotations about \(\hat{z}\).</p>
+<p><span class="figure-number">Figure 21: </span>Various rotations about \(\hat{z}\).</p>
 </div>
 </details>
 
@@ -4005,7 +4307,7 @@ Define the arbitrary axis
 Then, a rotation about \(\hat{\mathbf{n}}\) is given by
 </p>
 \begin{equation}
-\label{org06d8803}
+\label{orgfa26c27}
 \mathbf{R}(\hat{\mathbf{n}},\theta)=\exp\left(-i\frac{\theta}{2}\hat{\mathbf{n}}\cdot\vec{\sigma}\right),
 \end{equation}
 <p>
@@ -4013,7 +4315,7 @@ where
 </p>
 
 \begin{equation}
-\label{org765cd3f}
+\label{orgdcd53e1}
 \vec{\sigma}=\hat{\sigma}_{x}\mathbf{i}+\hat{\sigma}_{y}\mathbf{j}+\hat{\sigma}_{z}\mathbf{k}
 \end{equation}
 <p>
@@ -4021,7 +4323,7 @@ is a vector of Pauli operators, and
 </p>
 
 \begin{equation}
-\label{org5e8c54b}
+\label{org5da5447}
 \hat{\mathbf{n}}\cdot\vec{\sigma}=n_{x}\hat{\sigma}_{x}+n_{y}\hat{\sigma}_{y}+n_{z}\hat{\sigma}_{z}
 \end{equation}
 <p>
@@ -4029,7 +4331,7 @@ is a single-qubit operator.
 </p></li>
 </ul></li>
 </ul>
-<div class="note" id="org0ad115b">
+<div class="note" id="org736953d">
 <p>
 <b>Exercise 3.22</b>
 Find \(\hat{\mathbf{n}}\) to perform rotations about the following axes:
@@ -4047,7 +4349,7 @@ If
 \end{equation}
 <p>
 then Equation
-\eqref{org5e8c54b} becomes
+\eqref{org5da5447} becomes
 </p>
 \begin{equation}
   \hat{\mathbf{n}}\cdot\vec{\sigma}=\hat{\sigma}_{x},
@@ -4062,7 +4364,7 @@ rotation becomes
 <p>
 Notice that this is equivalent to the arbitrary rotation through
 \(\theta_{x}\) about \(\hat{x}\) from Equation
-\eqref{org6c44da1}.<br />
+\eqref{org6bbc9a1}.<br />
 </p>
 </details></li>
 <li><p>
@@ -4077,7 +4379,7 @@ If
 \end{equation}
 <p>
 then Equation
-\eqref{org5e8c54b} becomes
+\eqref{org5da5447} becomes
 </p>
 \begin{equation}
   \hat{\mathbf{n}}\cdot\vec{\sigma}=\hat{\sigma}_{y},
@@ -4106,7 +4408,7 @@ If
 \end{equation}
 <p>
 then Equation
-\eqref{org5e8c54b} becomes
+\eqref{org5da5447} becomes
 </p>
 \begin{equation}
   {\normalcolor }\hat{\mathbf{n}}\cdot\vec{\sigma}=\hat{\sigma}_{z},
@@ -4130,20 +4432,20 @@ about \(\hat{z}\).<br />
 </ol>
 </div>
 <div id="outline-container-additional-resources" class="outline-3">
-<h3 id="additional-resources"><span class="section-number-3">3.7.</span> Additional Resources</h3>
+<h3 id="additional-resources"><span class="section-number-3">3.8.</span> Additional Resources</h3>
 <div class="outline-text-3" id="text-additional-resources">
 <ul class="org-ul">
 <li>If you prefer videos, I have the following YouTube tutorials.</li>
 </ul>
 </div>
 <div id="outline-container-qca-part-1---overview-of-the-qca-concept" class="outline-4">
-<h4 id="qca-part-1---overview-of-the-qca-concept"><span class="section-number-4">3.7.1.</span> QCA Part 1 - Overview of the QCA Concept</h4>
+<h4 id="qca-part-1---overview-of-the-qca-concept"><span class="section-number-4">3.8.1.</span> QCA Part 1 - Overview of the QCA Concept</h4>
 <div class="outline-text-4" id="text-qca-part-1---overview-of-the-qca-concept">
 <iframe width= height= src=https://www.youtube.com/embed/z8LBOpfYcgY?si=BKvnZ_fVXrZXEJsV title=YouTube video player frameborder= allow=accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share referrerpolicy=strict-origin-when-cross-origin allowfullscreen></iframe>
 </div>
 </div>
 <div id="outline-container-qca-part-2---recent-research" class="outline-4">
-<h4 id="qca-part-2---recent-research"><span class="section-number-4">3.7.2.</span> QCA Part 2 - Recent Research</h4>
+<h4 id="qca-part-2---recent-research"><span class="section-number-4">3.8.2.</span> QCA Part 2 - Recent Research</h4>
 <div class="outline-text-4" id="text-qca-part-2---recent-research">
 <p>
 It's a bit dated:
@@ -4153,7 +4455,7 @@ It's a bit dated:
 </div>
 </div>
 <div id="outline-container-quantum-mechanics" class="outline-4">
-<h4 id="quantum-mechanics"><span class="section-number-4">3.7.3.</span> Quantum Mechanics</h4>
+<h4 id="quantum-mechanics"><span class="section-number-4">3.8.3.</span> Quantum Mechanics</h4>
 <div class="outline-text-4" id="text-quantum-mechanics">
 <iframe width= height= src=https://www.youtube.com/embed/Hxq7NUbBaFc?si=oqlY2npuj0cAvQ73 title=YouTube video player frameborder= allow=accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share referrerpolicy=strict-origin-when-cross-origin allowfullscreen></iframe>
 <iframe width= height= src=https://www.youtube.com/embed/QpNOVhSwIg8?si=RFhxOA6Q4b3l0mDe title=YouTube video player frameborder= allow=accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share referrerpolicy=strict-origin-when-cross-origin allowfullscreen></iframe>
@@ -4187,7 +4489,7 @@ E_{0}=\Braket{\psi_{0}|\hat{H}|\psi_{0}}
 <b>lowest allowed energy</b>, \(E_{0}\)</li>
 </ul></li>
 </ul>
-<div class="note" id="org1bc1b7c">
+<div class="note" id="org9585e2a">
 <p>
 <b>Exercise 4.1</b>
 Suppose we pick some \(\ket{\psi}\neq\ket{\psi_{0}}\). How will the
@@ -4263,7 +4565,7 @@ generate a new \(\ket{\psi}\)</li>
 <li>The procedure repeats until it finds a minimum \(\ket{\psi}\).</li>
 </ul></li>
 </ul>
-<div class="note" id="orgf505c5d">
+<div class="note" id="orgd6301db">
 <p>
 <b>Exercise 4.2</b>
 A parametric quantum circuit. Consider the transformation of \(\ket{0}\)
@@ -4271,7 +4573,7 @@ to state \(\ket{\psi}\):
 </p>
 
 \begin{equation}
-\label{org465bbac}
+\label{orge015df6}
 \ket{\psi}=\mathbf{R}_{z}\left(\theta_{z}\right)\mathbf{R}_{x}\left(\theta_{x}\right)\ket{0}.
 \end{equation}
 <ol class="org-ol">
@@ -4323,10 +4625,10 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 </code></pre>
 </div>
 
-<div id="orgf3fb978" class="figure">
+<div id="org21ac79f" class="figure">
 <p><img src="img/ExerciseTransform0to1.png" alt="ExerciseTransform0to1.png" />
 </p>
-<p><span class="figure-number">Figure 15: </span>Transform \(\ket{0}\) to \(\ket{1}\) using \(\mathbf{R}_{z}\left(0\right)\mathbf{R}_{x}\left(\pi\right)\).</p>
+<p><span class="figure-number">Figure 22: </span>Transform \(\ket{0}\) to \(\ket{1}\) using \(\mathbf{R}_{z}\left(0\right)\mathbf{R}_{x}\left(\pi\right)\).</p>
 </div>
 </details></li>
 <li><p>
@@ -4376,10 +4678,10 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 </code></pre>
 </div>
 
-<div id="org6cfa1f6" class="figure">
+<div id="orga4a990c" class="figure">
 <p><img src="img/ExerciseTransform0toMinus.png" alt="ExerciseTransform0toMinus.png" />
 </p>
-<p><span class="figure-number">Figure 16: </span>Transform \(\ket{0}\) to \(\ket{-}\) using \(\mathbf{R}_{z}\left(3\pi/2\right)\mathbf{R}_{x}\left(\pi/2\right)\).</p>
+<p><span class="figure-number">Figure 23: </span>Transform \(\ket{0}\) to \(\ket{-}\) using \(\mathbf{R}_{z}\left(3\pi/2\right)\mathbf{R}_{x}\left(\pi/2\right)\).</p>
 </div>
 </details></li>
 </ol>
@@ -4409,14 +4711,14 @@ some other state, \(\ket{\psi}\), called a <b>trial solution</b>
 We often use the symbol \(\mathbf{U}\left(\vec{\theta}\right)\) to
 reference our parametric quantum circuit, so that the process by
 which we transform \(\ket{0}\) to \(\ket{\psi}\) is shown in Figure
-<a href="#org3f2e90f">17</a>
+<a href="#org537b92a">24</a>
 </p>
 
 
-<div id="org3f2e90f" class="figure">
+<div id="org537b92a" class="figure">
 <p><img src="img/parametric-quantum-circuit.png" alt="parametric-quantum-circuit.png" />
 </p>
-<p><span class="figure-number">Figure 17: </span>An ansatz circuit prepares a trial wave function, \(\ket{\psi}\).</p>
+<p><span class="figure-number">Figure 24: </span>An ansatz circuit prepares a trial wave function, \(\ket{\psi}\).</p>
 </div></li>
 </ul></li>
 </ul>
@@ -4436,7 +4738,7 @@ Python packages:
 </ul></li>
 <li>Our first circuit will be nothing more than a quantum wire</li>
 </ul>
-<div class="note" id="orga660099">
+<div class="note" id="orgf14efce">
 <p>
 <b>Example 4.1</b>
 Build a single quantum wire in qiskit.
@@ -4471,7 +4773,7 @@ qc.draw(output=<span style="color: #CC9393;">'mpl'</span>,style=<span style="col
 </code></pre>
 </div>
 
-<div id="orgcde5e13" class="figure">
+<div id="org914d89e" class="figure">
 <p><img src="img/qiskit-quantum-wire.png" alt="qiskit-quantum-wire.png" />
 </p>
 </div>
@@ -4479,7 +4781,7 @@ qc.draw(output=<span style="color: #CC9393;">'mpl'</span>,style=<span style="col
 
 </div>
 
-<div class="note" id="orga55fdae">
+<div class="note" id="org97a4bb3">
 <p>
 <b>Example 4.2</b>
 Build a single quantum wire with a NOT gate in qiskit.
@@ -4500,7 +4802,7 @@ qc.draw(output=<span style="color: #CC9393;">'mpl'</span>,style=<span style="col
 </code></pre>
 </div>
 
-<div id="orgf6863e6" class="figure">
+<div id="orgde1ac61" class="figure">
 <p><img src="img/qiskit-quantum-wire-not.png" alt="qiskit-quantum-wire-not.png" />
 </p>
 </div>
@@ -4508,7 +4810,7 @@ qc.draw(output=<span style="color: #CC9393;">'mpl'</span>,style=<span style="col
 
 </div>
 
-<div class="note" id="org21e30cd">
+<div class="note" id="org330901b">
 <p>
 <b>Example 4.3</b>
 Use qiskit to measure the state of the circuit from Example 4.3.
@@ -4596,7 +4898,7 @@ implicit:
 \end{equation}</li>
 </ul></li>
 </ul>
-<div class="note" id="org7830f82">
+<div class="note" id="orgd3a6491">
 <p>
 <b>Example 5.1</b>
 Tensor products. Let
@@ -4642,7 +4944,7 @@ write \(\ket{\Psi}\) as a 4-element column vector:
 </p>
 
 \begin{equation}
-\label{org44d57c7}
+\label{org07dbd60}
 \ket{\Psi}\quad\leftrightarrow\quad\left[\begin{array}{c}
 d_{0}c_{0}\\
 d_{0}c_{1}\\
@@ -4712,7 +5014,7 @@ forms a block of \(\hat{A}\otimes\hat{B}\)</li>
 <li>This treatment also applies to vectors, since vectors are matrices
 with a single row or column</li>
 </ul>
-<div class="note" id="org5e37a4f">
+<div class="note" id="org696047d">
 <p>
 <b>Exercise 5.2</b>
 The Kronecker product with vectors.
@@ -4732,32 +5034,32 @@ Take the Kronecker product of the two vectors
 \end{equation}
 <details><summary>Show/hide solution...</summary>
 \begin{equation}
-\label{org95a148e}
- \ket{\psi}_{1}\otimes\ket{\psi}_{0}=\left[\begin{array}{c}
-       d_{0}\left[\begin{array}{c}
-       c_{0}\\
-       c_{1}
-       \end{array}\right]\\
-       d_{1}\left[\begin{array}{c}
-       c_{0}\\
-       c_{1}
-       \end{array}\right]
-       \end{array}\right]=\left[\begin{array}{c}
-       d_{0}c_{0}\\
-       d_{0}c_{1}\\
-       d_{1}c_{0}\\
-       d_{1}c_{1}
-       \end{array}\right]\begin{array}{c}
-       \leftrightarrow\ket{0}\ket{0}\\
-       \leftrightarrow\ket{0}\ket{1}\\
-       \leftrightarrow\ket{1}\ket{0}\\
-       \leftrightarrow\ket{1}\ket{1}
-       \end{array}
+\label{org601393a}
+\ket{\psi}_{1}\otimes\ket{\psi}_{0}=\left[\begin{array}{c}
+    d_{0}\left[\begin{array}{c}
+    c_{0}\\
+    c_{1}
+    \end{array}\right]\\
+    d_{1}\left[\begin{array}{c}
+    c_{0}\\
+    c_{1}
+    \end{array}\right]
+    \end{array}\right]=\left[\begin{array}{c}
+    d_{0}c_{0}\\
+    d_{0}c_{1}\\
+    d_{1}c_{0}\\
+    d_{1}c_{1}
+    \end{array}\right]\begin{array}{c}
+    \leftrightarrow\ket{0}\ket{0}\\
+    \leftrightarrow\ket{0}\ket{1}\\
+    \leftrightarrow\ket{1}\ket{0}\\
+    \leftrightarrow\ket{1}\ket{1}
+    \end{array}
 \end{equation}
 <p>
 Notice that Equation
-\eqref{org95a148e} agrees with our
-result from \eqref{org44d57c7}.<br />
+\eqref{org601393a} agrees with our
+result from \eqref{org07dbd60}.<br />
 </p>
 </details></li>
 <li><p>
@@ -4822,16 +5124,16 @@ If we compose the appropriate Cbits
 \ket{b_{N-1}}\ket{b_{N-2}}\cdots\ket{b_{1}}\ket{b_{0}}=\ket{k}_{N},
 \end{equation}
 <p>
-then in the corresponding vector, the \(k^{\mbox{{\tiny {th}}}}\)
-element alone is unity, and all others are zero.
+then in the corresponding vector, the \(k\)-th element alone is
+unity, and all others are zero.
 </p></li>
 </ul></li>
 <li>Conversely, we can:
 <ul class="org-ul">
-<li>Represent \(S\) different numbers over \(0\leq k<S\) using an
+<li>Represent \(S\) different numbers over \(0\leq k\lt S\) using an
 \(S\)-element vector \(\ket{k}\)</li>
-<li>The \(k^{\mbox{{\tiny {th}}}}\) number is represented by setting
-element \(k=1\), and all other elements to zero</li>
+<li>The \(k\)-th number is represented by setting element \(k=1\), and
+all other elements to zero</li>
 </ul></li>
 </ul>
 </div>
@@ -4883,7 +5185,7 @@ subscripts inside the kets and simply write<br />
 </p>
 
 \begin{equation}
-\label{orgfbe97b9}
+\label{org80b7dee}
 \ket{\Psi}=b_{0}a_{0}\ket{00}+b_{0}a_{1}\ket{01}+b_{1}a_{0}\ket{10}+b_{1}a_{1}\ket{11}.
 \end{equation}
 <ul class="org-ul">
@@ -4910,7 +5212,7 @@ string \(q_{N-1}q_{N-2}\cdots q_{1}q_{0}\), and</li>
 </ul></li>
 </ul></li>
 </ul>
-<div class="note" id="org586ad70">
+<div class="note" id="org5bacdc1">
 <p>
 <b>Exercise 5.3</b>
 Let a two-qubit state be
@@ -5029,13 +5331,13 @@ system \(A\)</li>
 \(\ket{\psi_{A}}\) and \(\ket{\psi_{B}}\), \(A\) and \(B\) are said to
 have <b>pure</b> states or <b>coherent</b> states.</li>
 </ul>
-<div class="note" id="orgb92dcac">
+<div class="note" id="org525e56d">
 <p>
 <b>Exercise 5.4</b>
 Let a two-qubit state be
 </p>
 \begin{equation}
-\ket{\Psi}=c_{0}\ket{0_{2}}+c_{2}\ket{2_{2}}.
+\ket{\Psi}=c_{0}\ket{0_{2}}+c_{1}\ket{1_{2}}+c_{2}\ket{2_{2}}.
 \end{equation}
 <ol class="org-ol">
 <li><p>
@@ -5265,11 +5567,11 @@ order of Kronecker products.
 </ul></li>
 <li><p>
 In quantum computing literature, if we only want to operate on the
-\(k\)-th qubit using an operator \(\mathbf{O}\), we could explicilty
+\(k\)-th qubit using an operator \(\mathbf{O}\), we could explicitly
 write this as
 </p>
 \begin{equation}
-\mathbf{1}_{n-1}\otimes\cdots\otimes\mathbf{1}_{k+1}\otimes\mathbf{O}_{k}\otimes\mathbf{1}_{k-1}\otimes\cdots\mathbf{1}_{0}=\mathbf{O}_{n-1}\cdots\mathbf{1}_{k+1}\mathbf{O}_{k}\mathbf{1}_{k-1}\cdots\mathbf{1}_{0}=\mathbf{O}_{k}
+\mathbf{1}_{n-1}\otimes\cdots\otimes\mathbf{1}_{k+1}\otimes\mathbf{O}_{k}\otimes\mathbf{1}_{k-1}\otimes\cdots\mathbf{1}_{0}=\mathbf{O}_{k}
 \end{equation}
 <ul class="org-ul">
 <li>Here, we are are applying the identity operator (it does nothing) to
@@ -5284,7 +5586,7 @@ implicit, and use only the subscript, as in the right-hand
 expression.</li>
 </ul></li>
 </ul>
-<div class="note" id="org34b193c">
+<div class="note" id="orgc4b69b1">
 <p>
 <b>Exercise 5.5</b>
 Consider the state \(\ket{0}\otimes\ket{1}\). Construct an operator that
@@ -5397,7 +5699,7 @@ can arise that are a superposition of \(\ket{0}\) and
 \(\ket{1}\)</li>
 </ul></li>
 <li>In quantum mechanics and QCA, we're most interested in solving the
-Schrödinger equation</li>
+Schr�dinger equation</li>
 </ul></li>
 <li>Quantum information
 <ul class="org-ul">
@@ -5413,7 +5715,7 @@ processing with quantum algorithms
 </p></li>
 <li>In information processing and the study of algorithms, we
 generally ignore the quantum physics, so we don't focus on the
-Hamiltonian or the Schrödinger equation</li>
+Hamiltonian or the Schr�dinger equation</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -5427,7 +5729,7 @@ Hamiltonian or the Schrödinger equation</li>
 <li>Here, we will model systems of interacting QCA molecules that function
 as circuits, and discern their ground states</li>
 <li>We will work with the simplest of circuits, a row of QCA molecules, as
-illustrated in Figure <a href="#orgc5b4b5d">20</a>
+illustrated in Figure <a href="#orgd3ec098">27</a>
 <ul class="org-ul">
 <li>The molecules are spaced with an even pitch \(a\)</li>
 </ul></li>
@@ -5437,10 +5739,10 @@ illustrated in Figure <a href="#orgc5b4b5d">20</a>
 <h4 id="hamiltonian-operators-for-individual-cells"><span class="section-number-4">5.4.1.</span> Hamiltonian Operators for Individual Cells</h4>
 <div class="outline-text-4" id="text-hamiltonian-operators-for-individual-cells">
 
-<div id="orgc5b4b5d" class="figure">
+<div id="orgd3ec098" class="figure">
 <p><img src="img/qca-wire.png" alt="qca-wire.png" />
 </p>
-<p><span class="figure-number">Figure 20: </span>A system of \(N\) QCA molecules acts as a binary wire. A driver cell is labeled as cell 0, and the \(N\) circuit cells are labeled \(k\in\left\{ 1,2,\ldots,N\right\}\). Each cell is a distance \(a\) from its nearest neighbors.</p>
+<p><span class="figure-number">Figure 27: </span>A system of \(N\) QCA molecules acts as a binary wire. A driver cell is labeled as cell 0, and the \(N\) circuit cells are labeled \(k\in\left\{ 1,2,\ldots,N\right\}\). Each cell is a distance \(a\) from its nearest neighbors.</p>
 </div>
 <ul class="org-ul">
 <li>To simplify the problem, we will assume that only nearest neighbors
@@ -5449,8 +5751,8 @@ interact
 <li><p>
 Thus, in this limit, only cell 0 is directly influenced by the
 driver, drives a bias given in Equations
-\eqref{org1a56333} and
-\eqref{orgdf628ad} as the
+\eqref{org8e8391b} and
+\eqref{org995c174} as the
 following function of driver polarization, \(P_{0}\):
 </p>
 \begin{equation}
@@ -5463,7 +5765,7 @@ Hamiltonian as
 </p>
 
 \begin{equation}
-\label{org3fb5cfe}
+\label{org2ee68af}
 \hat{H}_{0}=-\gamma\hat{\sigma}_{x}^{\left(0\right)}+\frac{\Delta}{2}\hat{\sigma}_{z}^{\left(0\right)},
 \end{equation}
 <p>
@@ -5484,7 +5786,7 @@ describes charge tunneling in the \(k\)-th cell, but no bias:
 </p>
 
 \begin{equation}
-\label{org71df832}
+\label{orga1dfa9b}
 \hat{H}_{k}=-\gamma\hat{\sigma}_{x}^{\left(k\right)}
 \end{equation}
 <ul class="org-ul">
@@ -5639,16 +5941,16 @@ particular circuit configuration</li>
 <li>Another way to determine the energies is through symmetry</li>
 <li>We will now illustrate this with an example</li>
 </ul>
-<div class="note" id="org24a44ff">
+<div class="note" id="orgde54c1c">
 <p>
 <b>Exercise 5.6</b>
 </p>
 
 
-<div id="org8064f36" class="figure">
+<div id="org4218b7f" class="figure">
 <p><img src="img/driven-binary-wire-N2.png" alt="driven-binary-wire-N2.png" />
 </p>
-<p><span class="figure-number">Figure 21: </span>A driven two-cell QCA a binary wire.</p>
+<p><span class="figure-number">Figure 28: </span>A driven two-cell QCA a binary wire.</p>
 </div>
 <ol class="org-ol">
 <li><p>
@@ -5661,7 +5963,7 @@ As discussed above, only cell 0 is influcenced by the driver because
 we choose to simplify the problem by considering only
 nearest-neighbor interactions: cell \(k\) interacts only with cells
 \(k\pm1\). Thus, the Hamiltonian for cell 1 is given by Equation
-\eqref{org3fb5cfe} and
+\eqref{org2ee68af} and
 written in matrix form as
 </p>
 \begin{equation}
@@ -5673,7 +5975,7 @@ written in matrix form as
 <p>
 whereas the Hamiltonian for cell 1 is given by
 Equation
-\eqref{org71df832}
+\eqref{orga1dfa9b}
 and is written as a matrix devoid of any direct influence by the
 driver:
 </p>
@@ -5742,7 +6044,7 @@ we need to calculate the energies of interaction in
 the four comptational basis states,
 \(\left\{ \ket{0},\ket{1},\ket{2},\ket{3}\right\}\). These states are
 illustrated in Figure
-<a href="#org8384a13">22</a>-<a href="#org14d03a2">25</a>.
+<a href="#org203a9ea">29</a>-<a href="#org4cbf0b5">32</a>.
 The energies we seek are internal to the two-cell quantum system. We
 exclude driver interactions, since the driver is external to the
 quantum system, and its influence appears in the bais for
@@ -5778,7 +6080,7 @@ Since we can choose the zero of the potenial energy of interaction,
 we can set the zero to be infinite separation of charge, which also
 is half-way between the kinked and relaxed states, as illustrated in
 Figure
-<a href="#org8384a13">22</a>--<a href="#org14d03a2">25</a>.
+<a href="#org203a9ea">29</a>--<a href="#org4cbf0b5">32</a>.
 Thus, we can write the matrix \(\hat{H}_{\text{int}}\) and write in
 as an outer product of operators:
 </p>
@@ -5797,28 +6099,28 @@ as an outer product of operators:
 \end{equation}
 
 
-<div id="org8384a13" class="figure">
+<div id="org203a9ea" class="figure">
 <p><img src="img/driven-binary-wire-N2-ket00.png" alt="driven-binary-wire-N2-ket00.png" />
 </p>
-<p><span class="figure-number">Figure 22: </span>\(\ket{0}=\ket{0}\otimes\ket{0}\)</p>
+<p><span class="figure-number">Figure 29: </span>\(\ket{0}=\ket{0}\otimes\ket{0}\)</p>
 </div>
 
-<div id="org6254b35" class="figure">
+<div id="orgb92388a" class="figure">
 <p><img src="img/driven-binary-wire-N2-ket01.png" alt="driven-binary-wire-N2-ket01.png" />
 </p>
-<p><span class="figure-number">Figure 23: </span>\(\ket{1}=\ket{0}\otimes\ket{1}\)</p>
+<p><span class="figure-number">Figure 30: </span>\(\ket{1}=\ket{0}\otimes\ket{1}\)</p>
 </div>
 
-<div id="orgc31fd32" class="figure">
+<div id="org5873ab4" class="figure">
 <p><img src="img/driven-binary-wire-N2-ket02.png" alt="driven-binary-wire-N2-ket02.png" />
 </p>
-<p><span class="figure-number">Figure 24: </span>\(\ket{2}=\ket{1}\otimes\ket{0}\)</p>
+<p><span class="figure-number">Figure 31: </span>\(\ket{2}=\ket{1}\otimes\ket{0}\)</p>
 </div>
 
-<div id="org14d03a2" class="figure">
+<div id="org4cbf0b5" class="figure">
 <p><img src="img/driven-binary-wire-N2-ket03.png" alt="driven-binary-wire-N2-ket03.png" />
 </p>
-<p><span class="figure-number">Figure 25: </span>\(\ket{3}=\ket{1}\otimes\ket{1}\)</p>
+<p><span class="figure-number">Figure 32: </span>\(\ket{3}=\ket{1}\otimes\ket{1}\)</p>
 </div>
 </details></li>
 <li><p>
@@ -5901,11 +6203,11 @@ straight-forward examples are
 
 </div>
 
-<div class="note" id="org09cd90c">
+<div class="note" id="orgc918ec1">
 <p>
 <b>Exercise 5.7</b>
 Find the Hamiltonian for the driven pair of QCA cells in Figure
-<a href="#org8064f36">21</a>. For simplicity, we consider only
+<a href="#org4218b7f">28</a>. For simplicity, we consider only
 nearest-neighbor interactions. That is, the driver only affects cell 0,
 so that the Hamiltonian for cell 0 is as before:
 </p>
@@ -6027,11 +6329,11 @@ Now, we can find the total Hamiltonian,
 
 </div>
 
-<div class="note" id="orgdc79cf4">
+<div class="note" id="org89b9485">
 <p>
 <b>Exercise 5.8</b>
 Find the ground state of the system from Figure
-<a href="#org8064f36">21</a> under the simplifications
+<a href="#org4218b7f">28</a> under the simplifications
 \(\Delta\rightarrow0\) and \(\gamma\rightarrow0\). You may assume
 \(E_{k}>0\).
 </p>
@@ -6081,11 +6383,11 @@ combination of states as the ground state:
 
 </div>
 
-<div class="note" id="org207c265">
+<div class="note" id="orgba2a77b">
 <p>
 <b>Exercise 5.9</b>
 Find the ground state of the system from Figure
-<a href="#org8064f36">21</a> under the simplifications
+<a href="#org4218b7f">28</a> under the simplifications
 \(\Delta\rightarrow0\) and \(\gamma\rightarrow0\), but now with each
 cell experiencing internal bias \(\Delta_{0}\) and external bias,
 \(\Delta_{e}\). For now, let us combine the internal and external bias
@@ -6149,11 +6451,11 @@ need \(\Delta_{t}>E_{k}\).
 
 </div>
 
-<div class="note" id="org95058d6">
+<div class="note" id="org9b044f8">
 <p>
 <b>Exercise 5.10</b>
 Calculate the response of two double-dot QCA cells to the polarization
-of a single driver, as in Figure <a href="#org8064f36">21</a>.
+of a single driver, as in Figure <a href="#org4218b7f">28</a>.
 </p>
 <details><summary>Show/hide solution...</summary>
 <div class="org-src-container">
@@ -6251,17 +6553,23 @@ plt.savefig( tgtfile )
 </code></pre>
 </div>
 
+<pre class="example">
+The kink energy is: 421.71829976708756 meV
 
-<div id="org02e80bb" class="figure">
+[[./img/two-cell-cell-ground-state.png]]
+</pre>
+
+
+<div id="orgbbe8369" class="figure">
 <p><img src="img/two-cell-cell-ground-state.png" alt="two-cell-cell-ground-state.png" />
 </p>
-<p><span class="figure-number">Figure 26: </span>The polarizations of cells 0 and 1 in the driven ground state of a two-cell wire.</p>
+<p><span class="figure-number">Figure 33: </span>The polarizations of cells 0 and 1 in the driven ground state of a two-cell wire.</p>
 </div>
 </details>
 
 </div>
 
-<div class="note" id="orgef1169f">
+<div class="note" id="orgfd4e19d">
 <p>
 <b>Exercise 5.11</b>
 </p>
@@ -6269,7 +6577,7 @@ plt.savefig( tgtfile )
 <p>
 <img src="img/driven-binary-wire-N3.png" alt="driven-binary-wire-N3.png" />
 Consider a three-cell circuit (i.e., \(N=3\)) as in Figure
-<a href="#org5ff8889">30</a>.
+<a href="#orgb15971a">37</a>.
 </p>
 <ol class="org-ol">
 <li><p>
@@ -6289,7 +6597,7 @@ only cell 0 is biased by the driver, so we have
 <p>
 The Hamiltonians for cell 1 and cell 2 are of
 the same form, given by Equation
-\eqref{org71df832}:
+\eqref{orga1dfa9b}:
 </p>
 \begin{equation}
    \hat{H}_{1},\hat{H}_{2}=\left[\begin{array}{cc}
@@ -6348,11 +6656,11 @@ being treated in each interaction term.<br />
 
 </div>
 
-<div class="note" id="org01cdd67">
+<div class="note" id="org61e3dd0">
 <p>
 <b>Exercise 5.12</b>
 Find the ground state of the three-cell system from Figure
-<a href="#org5ff8889">30</a> under the simplifications
+<a href="#orgb15971a">37</a> under the simplifications
 \(\Delta\rightarrow0\) and \(\gamma\rightarrow0\), but now with each
 cell experiencing internal bias \(\Delta_{0}\) and external bias,
 \(\Delta_{e}\). For now, let us combine the internal and external bias
@@ -6556,7 +6864,7 @@ respectively:
 Then we can write the product state \(\ket{\Psi}\) as:
 </p>
 \begin{equation}
-\label{orgd7b23fe}
+\label{org6daaa49}
 \ket{\Psi}=\sum_{b,a}\beta_{b}\alpha_{a}\ket{b}\ket{a}
 \end{equation}
 <p>
@@ -6648,7 +6956,7 @@ and
 <li>From now on, we'll drop the superscript \(\left(\text{r}\right)\) for
 simplicity.</li>
 </ul>
-<div class="note" id="org434ab14">
+<div class="note" id="orgfd305bf">
 <p>
 <b>Exercise 5.13</b>
 Consider the general two-qubit state for qubits labeled \(B\) and \(A\):
@@ -6778,12 +7086,12 @@ Shannon entropy</li>
 <div class="outline-text-4" id="text-shannon-entropy">
 <ul class="org-ul">
 <li><p>
-The Shannon entropy, \(S_{S}\), for a syststem is a measure of
+The Shannon entropy, \(S_{S}\), for a system is a measure of
 uncertainty in the system, and it is defined as
 </p>
 
 \begin{equation}
-\label{orgbf1ac92}
+\label{orgb395994}
 S_{S}=-\sum_{x}p(x)\log_{10}\left(p(x)\right),
 \end{equation}
 <p>
@@ -6791,7 +7099,7 @@ where the sum is over all the possible outcomes \(x\), and
 \(p\left(x\right)\) is the probability of outcome \(x\)
 </p></li>
 </ul>
-<div class="note" id="org1c9efc7">
+<div class="note" id="org7f9ad3c">
 <p>
 <b>Exercise 5.14</b>
 Suppose we had rigged a coin toss, and we knew that there is a 100%
@@ -6821,7 +7129,7 @@ S_{s}=-0\cdot\log_{10}\left(p(0)\right)-1\cdot\log_{10}\left(p(1)\right)=0.
 <li>complete knowledge about the outcome of the system</li>
 </ul></li>
 </ul>
-<div class="note" id="orgc3312b6">
+<div class="note" id="org8406ab5">
 <p>
 <b>Exercise 5.15</b>
 Suppose we have a fair coin toss, and the outcome is completely random:
@@ -6855,11 +7163,11 @@ entropy as an uncertainty in bits. Thus, we use
 </p>
 
 \begin{equation}
-\label{org2db45cf}
+\label{org354685a}
 S_{S}=-\sum_{x}p(x)\log_{2}\left(p(x)\right),
 \end{equation}</li>
 </ul>
-<div class="note" id="org70b42e1">
+<div class="note" id="org8a05a3b">
 <p>
 <b>Exercise 5.16</b>
 Repeat Exercise 5.15, but this time, calculate entropy in bits.
@@ -6946,7 +7254,7 @@ S_{VN}=-\sum_{i}\rho_{ii}\ln\rho_{ii}
 Shannon entropy applied to the diagonal of the density matrix</li>
 </ul></li>
 </ul>
-<div class="note" id="orgaac6aaf">
+<div class="note" id="org135f3ff">
 <p>
 <b>Exercise 5.17</b>
 Consider the two-qubit state for qubits 1 and 0:
@@ -7047,7 +7355,7 @@ are disentangled from one another.<br />
 
 </div>
 
-<div class="note" id="org1a67c14">
+<div class="note" id="org2e3232b">
 <p>
 <b>Exercise 5.18</b>
 Consider the two-qubit state for qubits 1 and 0:
@@ -7157,7 +7465,7 @@ probability is \(1/2\). For each density matrix, we have
 will simply work with \(S_{VN}\), and we drop the subscript so we can
 just write \(S\)</li>
 </ul>
-<div class="note" id="orgf9291eb">
+<div class="note" id="org2988e14">
 <p>
 <b>Exercise 5.19</b>
 Write and test a function to calculate the entropy of a density matrix.
@@ -7337,7 +7645,7 @@ and the states
 are two-qubit states of maximal entanglement.
 </p></li>
 </ul>
-<div class="note" id="orgc50b16d">
+<div class="note" id="org3c88714">
 <p>
 <b>Exercise 5.20</b>
 Design a quantum circuit to transform \(\ket{00}\) into
@@ -7349,10 +7657,10 @@ We can use the following circuit:
 </p>
 
 
-<div id="orgd875593" class="figure">
+<div id="orgab321ce" class="figure">
 <p><img src="img/Bell-Circuit-00.png" alt="Bell-Circuit-00.png" />
 </p>
-<p><span class="figure-number">Figure 27: </span>This circuit transforms \(\ket{00}\) into \(\ket{\Phi^{+}}\).</p>
+<p><span class="figure-number">Figure 34: </span>This circuit transforms \(\ket{00}\) into \(\ket{\Phi^{+}}\).</p>
 </div>
 <details><summary>Show/hide code to make this figure ...</summary>
 <div class="org-src-container">
@@ -7434,7 +7742,7 @@ os.chdir(homedir)
 
 </div>
 
-<div class="note" id="orgac873e3">
+<div class="note" id="org9540ca6">
 <p>
 <b>Exercise 5.21</b>
 Design a quantum circuit to transform \(\ket{00}\) into
@@ -7446,10 +7754,10 @@ We can use the following circuit:
 </p>
 
 
-<div id="org22da2cf" class="figure">
+<div id="orgc6c4a4b" class="figure">
 <p><img src="img/Bell-Circuit-01.png" alt="Bell-Circuit-01.png" />
 </p>
-<p><span class="figure-number">Figure 28: </span>This circuit transforms \(\ket{00}\) into \(\ket{\Phi^{-}}\).</p>
+<p><span class="figure-number">Figure 35: </span>This circuit transforms \(\ket{00}\) into \(\ket{\Phi^{-}}\).</p>
 </div>
 <details><summary>Show/hide code to make this figure ...</summary>
 <div class="org-src-container">
@@ -7531,7 +7839,7 @@ os.chdir(homedir)
 
 </div>
 
-<div class="note" id="org09460bf">
+<div class="note" id="orgbbe0607">
 <p>
 <b>Exercise 5.22</b>
 Design a quantum circuit to transform \(\ket{00}\) into
@@ -7543,10 +7851,10 @@ We can use the following circuit:
 </p>
 
 
-<div id="orga74ba5e" class="figure">
+<div id="org37de9c0" class="figure">
 <p><img src="img/Bell-Circuit-02.png" alt="Bell-Circuit-02.png" />
 </p>
-<p><span class="figure-number">Figure 29: </span>This circuit transforms \(\ket{00}\) into \(\ket{\Psi^{+}}\).</p>
+<p><span class="figure-number">Figure 36: </span>This circuit transforms \(\ket{00}\) into \(\ket{\Psi^{+}}\).</p>
 </div>
 <details><summary>Show/hide code to make this figure ...</summary>
 <div class="org-src-container">
@@ -7628,7 +7936,7 @@ os.chdir(homedir)
 
 </div>
 
-<div class="note" id="orge064906">
+<div class="note" id="org40190ba">
 <p>
 <b>Exercise 5.23</b>
 Design a quantum circuit to transform \(\ket{00}\) into
@@ -7640,10 +7948,10 @@ We can use the following circuit:
 </p>
 
 
-<div id="org6f21047" class="figure">
+<div id="org78e1d18" class="figure">
 <p><img src="img/Bell-Circuit-03.png" alt="Bell-Circuit-03.png" />
 </p>
-<p><span class="figure-number">Figure 30: </span>This circuit transforms \(\ket{00}\) into \(\ket{\Psi^{-}}\).</p>
+<p><span class="figure-number">Figure 37: </span>This circuit transforms \(\ket{00}\) into \(\ket{\Psi^{-}}\).</p>
 </div>
 <details><summary>Show/hide code to make this figure ...</summary>
 <div class="org-src-container">
@@ -7829,9 +8137,9 @@ os.chdir(homedir)
 <div class="outline-text-4" id="text-an-isolated-qca-cell">
 <ul class="org-ul">
 <li>Here, we consider an example of the time-dependent Schrödinger
-equation from Equation \eqref{org899a03e}</li>
+equation from Equation \eqref{org82c26c4}</li>
 </ul>
-<div class="note" id="org6686424">
+<div class="note" id="org8f2cc01">
 <p>
 <b>Exercise 7.1</b>
 Find \(\ket{\psi\left(t\right)}\) for a QCA cell prepared in state
@@ -7842,7 +8150,7 @@ Find \(\ket{\psi\left(t\right)}\) for a QCA cell prepared in state
 <p>
 Assuming a constant Hamiltonian, \(\hat{H}\), e will use the solution of
 Equation
-\eqref{org6fb418e}.
+\eqref{org1620f20}.
 It can be shown that for \(\hat{H}=-\gamma\mathbf{X}\), the time
 evolution operator is given by
 </p>
@@ -7904,7 +8212,7 @@ computational basis states in what is called a Rabi oscillation.
 
 </div>
 
-<div class="note" id="orgc886a37">
+<div class="note" id="org2d0c083">
 <p>
 <b>Exercise 7.2</b>
 Find \(\ket{\psi\left(t\right)}\) for a QCA cell prepared in state
@@ -7918,7 +8226,7 @@ The code below calculates the time dynamics of
 \(\ket{\psi\left(t\right)}\) using a FOR loop. At each time step, we
 extract the polarization, \(-\Braket{\mathbf{Z}}\), and the total
 energy, \(\Braket{\hat{H}}\). The results are shown in Figure
-<a href="#org715f58e">31</a>.
+<a href="#org9fc0785">38</a>.
 </p>
 <details><summary>Show/hide code ...</summary>
 <div class="org-src-container">
@@ -8012,10 +8320,10 @@ Saved file as img/cell-rabi-osc.png
 </details>
 <div class="org-center">
 
-<div id="org715f58e" class="figure">
+<div id="org9fc0785" class="figure">
 <p><img src="img/cell-rabi-osc.png" alt="cell-rabi-osc.png" />
 </p>
-<p><span class="figure-number">Figure 31: </span>Oscillation of an isolated QCA cell as calculated using the code of above.</p>
+<p><span class="figure-number">Figure 38: </span>Oscillation of an isolated QCA cell as calculated using the code of above.</p>
 </div>
 </div>
 
@@ -8052,7 +8360,7 @@ energies</li>
 <li>We can pick the zero of potential energy to be anything</li>
 <li>In this case, we chose \(0\) as the average energy of states
 \(\ket{0}\) and \(\ket{1}\) way back in Equation
-\eqref{org348c466}, and there is no bias
+\eqref{org3258dac}, and there is no bias
 (\(\Delta=0\)) for the isolated cell</li>
 <li>Thus, both \(\ket{0}\) and \(\ket{1}\) have an energy of 0</li>
 <li>We started with \(E\left(0\right)=0\), and so our closed system is
@@ -8065,7 +8373,7 @@ fixed</li>
 <div id="outline-container-a-pair-of-qca-cells" class="outline-4">
 <h4 id="a-pair-of-qca-cells"><span class="section-number-4">7.1.2.</span> A Pair of QCA Cells</h4>
 <div class="outline-text-4" id="text-a-pair-of-qca-cells">
-<div class="note" id="org13ffb6f">
+<div class="note" id="org7f7b8d0">
 <p>
 <b>Exercise 7.3</b>
 Repeat Exercise 7.2, but this time do it for an interacting but isolated
@@ -8075,7 +8383,7 @@ pair of QCA cells.
 <p>
 This Python script calculates the time-evolution of an unbiased,
 isolated pair of QCA cells. The results are shown in Figure
-<a href="#orgf371a79">32</a>.
+<a href="#org3fb207a">39</a>.
 </p>
 <details><summary>Show/hide code ...</summary>
 <div class="org-src-container">
@@ -8182,10 +8490,10 @@ Saved file as img/cell-pair-osc.png
 
 </details>
 
-<div id="orgf371a79" class="figure">
+<div id="org3fb207a" class="figure">
 <p><img src="img/cell-pair-osc.png" alt="cell-pair-osc.png" />
 </p>
-<p><span class="figure-number">Figure 32: </span>Oscillation of an isolated QCA cell as calculated using the code above.</p>
+<p><span class="figure-number">Figure 39: </span>Oscillation of an isolated QCA cell as calculated using the code above.</p>
 </div>
 </details>
 
@@ -8203,7 +8511,7 @@ equation,
 </p>
 
 \begin{equation}
-\label{org8d2eb0c}
+\label{orgcb5b236}
 \frac{d\hat{\rho}}{dt}=-\frac{i}{\hbar}\left[\hat{H},\hat{\rho}\right],
 \end{equation}
 <p>
@@ -8211,13 +8519,13 @@ where \(\left[\hat{A},\hat{B}\right]\) is the commutator:
 </p>
 
 \begin{equation}
-\label{org57ae40f}
+\label{org797bc7f}
 \left[\hat{A},\hat{B}\right]=\hat{A}\hat{B}-\hat{B}\hat{A}
 \end{equation}</li>
-<li>Though Equation \eqref{org8d2eb0c} is
-equivalent to Equation \eqref{org899a03e} as a description of a
+<li>Though Equation \eqref{orgcb5b236} is
+equivalent to Equation \eqref{org82c26c4} as a description of a
 closed quantum system, our interest in Equation
-\eqref{org8d2eb0c} lies in the fact
+\eqref{orgcb5b236} lies in the fact
 that it may be extended to model open systems.</li>
 </ul>
 </div>
@@ -8230,7 +8538,7 @@ that integrates solutions to not just matrix differential equations,
 but also complex matrix differential equations</li>
 <li>The <code>odeintw</code> package provides these capabilities</li>
 </ul>
-<div class="note" id="orgf6ae2d2">
+<div class="note" id="orga7873ca">
 <p>
 <b>Exercise 7.4</b>
 Use Python to solve the quantum Liouville equation for the dynamics of
@@ -8241,7 +8549,7 @@ dynamics calculated using the Schrödinger equation.
 <details><summary>Show/hide solution ...</summary>
 <p>
 The code given below is one approach to this problem. Results are shown
-in Figure <a href="#org6e179c7">33</a>, in which we see that the
+in Figure <a href="#orgfe9afcc">40</a>, in which we see that the
 quantum Liouville model produces the same result as the Schrödinger
 model.
 </p>
@@ -8383,10 +8691,10 @@ plt.close(<span style="color: #CC9393;">"all"</span>)
 
 </details>
 
-<div id="org6e179c7" class="figure">
+<div id="orgfe9afcc" class="figure">
 <p><img src="img/qca-quantLiouville-Pt.png" alt="qca-quantLiouville-Pt.png" />
 </p>
-<p><span class="figure-number">Figure 33: </span>A state vector model matches a density operator model of the dynamics of an isolated QCA cell. The code that produced this is given in the code listing above.</p>
+<p><span class="figure-number">Figure 40: </span>A state vector model matches a density operator model of the dynamics of an isolated QCA cell. The code that produced this is given in the code listing above.</p>
 </div>
 </details>
 
@@ -8421,7 +8729,7 @@ so that we can write
 </p>
 
 \begin{equation}
-\label{orgb5f6332}
+\label{orgf75fe3c}
 \hat{H}\psi_{n}\left(x\right)=E_{n}\psi_{n}\left(x\right)
 \end{equation}
 <ul class="org-ul">
@@ -8429,7 +8737,7 @@ so that we can write
 We may also write this using Dirac's bra-ket formalism:
 </p>
 \begin{equation}
-\label{org77a0763}
+\label{org259306b}
 \hat{H}\ket{\psi_{n}}=E_{n}\ket{\psi_{n}}
 \end{equation}</li>
 </ul></li>
@@ -8471,7 +8779,7 @@ superposition of eigenstates:
 </p>
 
 \begin{equation}
-\label{org317d752}
+\label{org2e72c02}
 \psi\left(x\right)=\sum_{n=0}^{\infty}c_{n}\psi_{n}\left(x\right)
 \end{equation}
 <ul class="org-ul">
@@ -8519,7 +8827,7 @@ We can write the position and momentum operators in terms of
 </p>
 
 \begin{equation}
-\label{org94279f3}
+\label{org4b9a154}
 \begin{aligned}
 \hat{x} & =\sqrt{\frac{\hbar}{2m\omega}}\left(\hat{a}^{\dagger}+\hat{a}\right),\\
 \hat{p} & =\sqrt{\frac{\hbar m\omega}{2}}\left(\hat{a}^{\dagger}-\hat{a}\right)
@@ -8531,7 +8839,7 @@ The operator \(\hat{a}\) transforms an eigenstate
 </p>
 
 \begin{equation}
-\label{orge370a74}
+\label{org6ade988}
 \hat{a}\psi_{n}\left(x\right)=\begin{cases}
 \sqrt{n}\psi_{n-1}\left(x\right), & n>0\\
 0, & n=0
@@ -8548,7 +8856,7 @@ The operator \(\hat{a}^{\dagger}\) transforms an eigenstate
 </p>
 
 \begin{equation}
-\label{org78619e5}
+\label{orgfcad55e}
 \hat{a}^{\dagger}\psi_{n}\left(x\right)=\sqrt{n+1}\psi_{n+1}\left(x\right)
 \end{equation}
 <ul class="org-ul">
@@ -8563,7 +8871,7 @@ Consider the action of \(\hat{a}^{\dagger}\hat{a}\) on a state
 </p>
 
 \begin{equation}
-\label{org8ab6ae3}
+\label{orgaa149bb}
 \hat{a}^{\dagger}\hat{a}\psi_{n}\left(x\right)=\sqrt{n}\hat{a}^{\dagger}\psi_{n-1}\left(x\right)=n\psi_{n}\left(x\right)
 \end{equation}
 <ul class="org-ul">
@@ -8575,7 +8883,7 @@ Thus, we define \(\hat{a}^{\dagger}\hat{a}\) as the number operator,
 </p>
 
 \begin{equation}
-\label{orgb9deca5}
+\label{org8610216}
 \hat{n}=\hat{a}^{\dagger}\hat{a}
 \end{equation}</li>
 <li>The integer \(n\) is also called the occupation number, because it
@@ -8709,7 +9017,7 @@ basis:
 \hat{H}=\hbar\omega\left(\hat{a}^{\dagger}\hat{a}+\frac{1}{2}\hat{I}\right)
 \end{equation}</li>
 </ul>
-<div class="note" id="orgf9a49ea">
+<div class="note" id="org5d332fe">
 <p>
 <b>Exercise 8.1</b>
 Write Python code to form the raising and lowering operators of a
@@ -8818,7 +9126,7 @@ The code given below is one approach to this problem.
 </code></pre>
 </div>
 
-<pre class="example" id="org4dbef50">
+<pre class="example" id="org50a1795">
 Lowering operator in the energy basis:
 [[0.         1.         0.         0.         0.         0.        ]
  [0.         0.         1.41421356 0.         0.         0.        ]
@@ -8865,7 +9173,7 @@ because they represents the eigenstates in the energy basis</li>
 <li>To do this, we can:
 <ul class="org-ul">
 <li>form the position operator in the energy basis using Equation
-\eqref{org94279f3}</li>
+\eqref{org4b9a154}</li>
 <li>calculate the eigenvectors of the position operator in the energy
 basis</li>
 <li>form the eigenvectors into a matrix
@@ -8883,7 +9191,7 @@ energy-basis states or operators to the position basis</li>
 <div id="outline-container-the-position-basis-representation-for-the-qho" class="outline-4">
 <h4 id="the-position-basis-representation-for-the-qho"><span class="section-number-4">8.1.2.</span> The Position-Basis Representation for the QHO</h4>
 <div class="outline-text-4" id="text-the-position-basis-representation-for-the-qho">
-<div class="note" id="org514240b">
+<div class="note" id="org173fbe2">
 <p>
 <b>Exercise 8.2</b>
 Plot probability distributions for the ground state and the first two
@@ -8895,7 +9203,7 @@ excited states in both the energy basis and the position basis. Use
 <p>
 The code given below is one approach to this problem. Our result is
 given in Figure
-<a href="#orgabad18c">34</a>.
+<a href="#org680120f">41</a>.
 </p>
 <details><summary>Show/hide code ...</summary>
 <div class="org-src-container">
@@ -9013,10 +9321,10 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 
 </details>
 
-<div id="orgabad18c" class="figure">
+<div id="org680120f" class="figure">
 <p><img src="img/QHO-ExerciseTransformBasis.png" alt="QHO-ExerciseTransformBasis.png" />
 </p>
-<p><span class="figure-number">Figure 34: </span>Probability distributions are plotted for the ground state, first excited state, and second excited state. Each row of subplots shows an eigenstate of \(\hat{H}\). The top row shows the ground state. In the energy basis, only the ground state is occupied. A spatial distribution indicates a probability distribution peaked at the center, \(X=0/X_{o}\). The middle row shows the first excited state, and the bottom row shows the second excited state. Notice that the eigenstates are well-defined in energy space, but distributed over several position values in position space. The code that produced this is given in below.</p>
+<p><span class="figure-number">Figure 41: </span>Probability distributions are plotted for the ground state, first excited state, and second excited state. Each row of subplots shows an eigenstate of \(\hat{H}\). The top row shows the ground state. In the energy basis, only the ground state is occupied. A spatial distribution indicates a probability distribution peaked at the center, \(X=0/X_{o}\). The middle row shows the first excited state, and the bottom row shows the second excited state. Notice that the eigenstates are well-defined in energy space, but distributed over several position values in position space. The code that produced this is given in below.</p>
 </div>
 </details>
 
@@ -9063,7 +9371,7 @@ Notice that
 Thus, our time evolution becomes
 </p>
 \begin{equation}
-\label{orgffbea9a}
+\label{org4742259}
 \begin{aligned}
 \ket{\psi\left(t\right)} & =\sum_{k=0}^{\infty}\frac{1}{k!}\left(-\frac{it}{\hbar}\right)^{k}E_{n}^{k}\ket{\psi_{n}}=\left(\sum_{k=0}^{\infty}\frac{1}{k!}\left(-\frac{it}{\hbar}\right)^{k}E_{n}^{k}\right)\ket{\psi_{n}}\nonumber \\
 & =e^{-itE_{n}/\hbar}\ket{\psi_{n}}
@@ -9096,7 +9404,7 @@ form of \(\psi_{n}\left(x,t\right)\)
 <li>We can form noneigenstates of \(\hat{H}\) by making superpositions of
 eigenstates.</li>
 </ul>
-<div class="note" id="orge276061">
+<div class="note" id="org5b9ccbb">
 <p>
 <b>Exercise 8.3</b>
 Find the probability distribution of
@@ -9129,7 +9437,7 @@ a time-dependent probability distribution.
 <div id="outline-container-time-dependence-of-various-initial-conditions" class="outline-4">
 <h4 id="time-dependence-of-various-initial-conditions"><span class="section-number-4">8.2.3.</span> Time Dependence of Various initial Conditions</h4>
 <div class="outline-text-4" id="text-time-dependence-of-various-initial-conditions">
-<div class="note" id="org159e5a5">
+<div class="note" id="orgd505275">
 <p>
 <b>Exercise 8.4</b>
 Find the probability distribution of a system prepared in the initial
@@ -9153,7 +9461,7 @@ Apply the time evolution operator:
 
 </div>
 
-<div class="note" id="org0d09421">
+<div class="note" id="orgcdc86b1">
 <p>
 <b>Exercise 8.5</b>
 Plot the time-dependent probability distributions over position and
@@ -9162,17 +9470,17 @@ states:
 </p>
 
 \begin{equation}
-\label{org723c892}
+\label{orgf24540c}
 \psi_{a}\left(x,0\right)=\psi_{2}\left(x\right)
 \end{equation}
 
 \begin{equation}
-\label{org030fcba}
+\label{orgb7fdec0}
 \psi_{b}\left(x,0\right)=\frac{1}{\sqrt{2}}\left(\psi_{1}\left(x\right)+\psi_{2}\left(x\right)\right),\;\text{and}
 \end{equation}
 
 \begin{equation}
-\label{orgee05e42}
+\label{org6a24795}
 \psi_{c}\left(x,0\right)=D\left(\alpha\right)\psi_{0}\left(x\right),
 \end{equation}
 <p>
@@ -9190,7 +9498,7 @@ it behaves like a classical oscillator.
 <details><summary>Show/hide solution ...</summary>
 <p>
 The instructor solution is given below, with results plotted in Figure
-<a href="#org4d567c9">35</a>.
+<a href="#orge64cf82">42</a>.
 </p>
 <details><summary>Show/hide code ...</summary>
 <div class="org-src-container">
@@ -9403,10 +9711,10 @@ plt.savefig(figname)
 
 </details>
 
-<div id="org4d567c9" class="figure">
+<div id="orge64cf82" class="figure">
 <p><img src="../../../../Research/QuantComp/QMechQInfo/lyx/img/qho_evolution_vari_ic.png" alt="qho_evolution_vari_ic.png" />
 </p>
-<p><span class="figure-number">Figure 35: </span>Probability distributions are plotted for the ground states defined in Equations \eqref{org723c892}-\eqref{orgee05e42}. The top row is for \(\psi_{a}\left(x,0\right)=\psi_{n}\left(x\right)\) ; the middle row is for a linear combination of eigenstates; and the bottom row is for a Glauber state as the initial condition. The expectation value of energy or position is plotted in white. The code that produced this is given in the code above.</p>
+<p><span class="figure-number">Figure 42: </span>Probability distributions are plotted for the ground states defined in Equations \eqref{orgf24540c}-\eqref{org6a24795}. The top row is for \(\psi_{a}\left(x,0\right)=\psi_{n}\left(x\right)\) ; the middle row is for a linear combination of eigenstates; and the bottom row is for a Glauber state as the initial condition. The expectation value of energy or position is plotted in white. The code that produced this is given in the code above.</p>
 </div>
 </details>
 
@@ -9441,7 +9749,7 @@ formalism
 </ul></li>
 <li><p>
 Code that does this calculation is provided below. Results are shown
-in Figures <a href="#org0543a6c">36</a> and <a href="#org8529451">37</a>
+in Figures <a href="#org67e7a52">43</a> and <a href="#orgc12765d">44</a>
 </p>
 <div class="org-src-container">
 <pre class="src src-python"><code>
@@ -9605,27 +9913,27 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 
 <li>We can make some observations:
 <ul class="org-ul">
-<li>Figure <a href="#org0543a6c">36</a> shows that the time dynamics
+<li>Figure <a href="#org67e7a52">43</a> shows that the time dynamics
 according to the Schrödinger equation match those of the quantum
 Liouville equation</li>
 <li><p>
 These dynamics describe a closed system, where the energy is
 conserved within the system, as shown in Figure
-<a href="#org8529451">37</a>
+<a href="#orgc12765d">44</a>
 </p>
 
 
-<div id="org0543a6c" class="figure">
+<div id="org67e7a52" class="figure">
 <p><img src="img/qho_class_test_evolution_unitary_vs_ODE_XPD.png" alt="qho_class_test_evolution_unitary_vs_ODE_XPD.png" />
 </p>
-<p><span class="figure-number">Figure 36: </span>Dynamics calculated using the quantum Liouville equation match those calculated using the Schrödinger equation. This result is shown in the position basis.</p>
+<p><span class="figure-number">Figure 43: </span>Dynamics calculated using the quantum Liouville equation match those calculated using the Schrödinger equation. This result is shown in the position basis.</p>
 </div>
 
 
-<div id="org8529451" class="figure">
+<div id="orgc12765d" class="figure">
 <p><img src="img/qho_class_test_evolution_unitary_vs_ODE_EPD.png" alt="qho_class_test_evolution_unitary_vs_ODE_EPD.png" />
 </p>
-<p><span class="figure-number">Figure 37: </span>Dynamics calculated using the quantum Liouville equation match those calculated using the Schrödinger equation. This result is shown in the energy basis.</p>
+<p><span class="figure-number">Figure 44: </span>Dynamics calculated using the quantum Liouville equation match those calculated using the Schrödinger equation. This result is shown in the energy basis.</p>
 </div></li>
 </ul></li>
 </ul>
@@ -9641,7 +9949,7 @@ Lindblad equation
 </p>
 
 \begin{equation}
-\label{orgde00bb1}
+\label{org54324fc}
 \frac{d\hat{\rho}}{dt}=-\frac{i}{\hbar}\left[\hat{H},\hat{\rho}\right]+\sum_{j}\hat{L}_{j}\hat{\rho}\hat{L}_{j}^{\dagger}-\frac{1}{2}\left\{ \hat{L}_{j}^{\dagger}\hat{L}_{j},\hat{\rho}\right\} ,
 \end{equation}
 <p>
@@ -9653,22 +9961,22 @@ Lindblad operators or dissipation channels
 density operator</li>
 <li>This is a matrix differential equation, like the quantum Liouville
 equation [see Equation
-\eqref{org8d2eb0c}].</li>
+\eqref{orgcb5b236}].</li>
 <li>The Lindblad equation contains a term called the Liouvillian, which
 is the right-hand side of Equation
-\eqref{org8d2eb0c}
+\eqref{orgcb5b236}
 <ul class="org-ul">
 <li>This part is said to be the unitary part or the Liouvillian part</li>
 <li>It is responsible for the unitary (closed-system) dynamics of a
 quantum state</li>
 </ul></li>
 <li><p>
-Equation \eqref{orgde00bb1} also has an additional
+Equation \eqref{org54324fc} also has an additional
 term, called the Lindbladian or the dissipator:
 </p>
 
 \begin{equation}
-\label{orgc7a56e9}
+\label{orgf00d5f3}
 \mathcal{D}=\sum_{j}\hat{L}_{j}\hat{\rho}\hat{L}_{j}^{\dagger}-\frac{1}{2}\left\{ \hat{L}_{j}^{\dagger}\hat{L}_{j},\hat{\rho}\right\}
 \end{equation}
 <ul class="org-ul">
@@ -9719,8 +10027,8 @@ find the system in its ground state</li>
 </ul></li>
 <li>The code below calculates the time evolution of a QHO under
 relaxation, and results are shown in Figures
-<a href="#org06b6501">38</a> (position basis) and
-<a href="#orge4519d6">39</a> (energy basis)</li>
+<a href="#orgd961134">45</a> (position basis) and
+<a href="#org37acccd">46</a> (energy basis)</li>
 </ul>
 <details><summary>Show/hide code ...</summary>
 <div class="org-src-container">
@@ -9889,7 +10197,7 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 </code></pre>
 </div>
 
-<pre class="example" id="org78491dc">
+<pre class="example" id="orgcc78ba2">
 
 [[./img/qho_class_test_evolution_unitary_PD.png]]
 &lt;class 'numpy.ndarray'&gt;
@@ -9899,21 +10207,21 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 
 [[./img/qho_unitary_vs_lind_EPD.png]]
 
-Code executed at 2026-10-06 19:44:18.317624
+Code executed at 2026-10-14 22:19:50.624882
 </pre>
 </details>
 
-<div id="org06b6501" class="figure">
+<div id="orgd961134" class="figure">
 <p><img src="img/qho_unitary_vs_lind_XPD.png" alt="qho_unitary_vs_lind_XPD.png" />
 </p>
-<p><span class="figure-number">Figure 38: </span>The QHO modeled using the quantum Liouville equation behaves as a closed-system (top), in which oscillations persist forever. In the case of Lindblad evolution, however, damping is evident as oscillations decrease in amplitude with time (bottom).</p>
+<p><span class="figure-number">Figure 45: </span>The QHO modeled using the quantum Liouville equation behaves as a closed-system (top), in which oscillations persist forever. In the case of Lindblad evolution, however, damping is evident as oscillations decrease in amplitude with time (bottom).</p>
 </div>
 
 
-<div id="orge4519d6" class="figure">
+<div id="org37acccd" class="figure">
 <p><img src="img/qho_unitary_vs_lind_EPD.png" alt="qho_unitary_vs_lind_EPD.png" />
 </p>
-<p><span class="figure-number">Figure 39: </span>In the energy basis, Liouvillian evolution conserves energy, but an exponential decrease in energy is evident in the open system modeled using the Lindblad equation.</p>
+<p><span class="figure-number">Figure 46: </span>In the energy basis, Liouvillian evolution conserves energy, but an exponential decrease in energy is evident in the open system modeled using the Lindblad equation.</p>
 </div>
 </div>
 </div>
@@ -9946,8 +10254,8 @@ previous case</li>
 </ul></li>
 <li>The code below calculates the time evolution of a QHO under
 thermalization, and results are shown in Figures
-<a href="#org06b6501">38</a> (position basis) and
-<a href="#orge4519d6">39</a> (energy basis)</li>
+<a href="#orgd961134">45</a> (position basis) and
+<a href="#org37acccd">46</a> (energy basis)</li>
 </ul>
 <details><summary>Show/hide code ...</summary>
 <div class="org-src-container">
@@ -10116,7 +10424,7 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 </code></pre>
 </div>
 
-<pre class="example" id="org63706a1">
+<pre class="example" id="org5ea866d">
 
 [[./img/qho_class_test_evolution_unitary_PD.png]]
 &lt;class 'numpy.ndarray'&gt;
@@ -10126,21 +10434,21 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 
 [[./img/qho_unitary_vs_lind_EPD-thermal.png]]
 
-Code executed at 2026-10-06 19:44:21.222789
+Code executed at 2026-10-14 22:19:53.265638
 </pre>
 </details>
 
-<div id="orge81dbc4" class="figure">
+<div id="org2fbd19a" class="figure">
 <p><img src="img/qho_unitary_vs_lind_XPD-thermal.png" alt="qho_unitary_vs_lind_XPD-thermal.png" />
 </p>
-<p><span class="figure-number">Figure 40: </span>The QHO modeled using the quantum Liouville equation behaves as a closed-system (top), in which oscillations persist forever. In the case of Lindblad evolution, however, damping is evident as oscillations decrease in amplitude with time (bottom).</p>
+<p><span class="figure-number">Figure 47: </span>The QHO modeled using the quantum Liouville equation behaves as a closed-system (top), in which oscillations persist forever. In the case of Lindblad evolution, however, damping is evident as oscillations decrease in amplitude with time (bottom).</p>
 </div>
 
 
-<div id="org221a1f0" class="figure">
+<div id="org640856a" class="figure">
 <p><img src="img/qho_unitary_vs_lind_EPD-thermal.png" alt="qho_unitary_vs_lind_EPD-thermal.png" />
 </p>
-<p><span class="figure-number">Figure 41: </span>In the energy basis, Liouvillian evolution conserves energy, but an exponential decrease in energy is evident in the open system modeled using the Lindblad equation. Here, the thermalization</p>
+<p><span class="figure-number">Figure 48: </span>In the energy basis, Liouvillian evolution conserves energy, but an exponential decrease in energy is evident in the open system modeled using the Lindblad equation. Here, the thermalization</p>
 </div>
 </div>
 </div>
@@ -10151,9 +10459,9 @@ Code executed at 2026-10-06 19:44:21.222789
 <li>It may not be evident how the dynamics of dissipation (relaxation)
 differ from thermalization
 <ul class="org-ul">
-<li>After all, Figures <a href="#org06b6501">38</a> and
-<a href="#orge4519d6">39</a> are very similar to Figures
-<a href="#orge81dbc4">40</a> and <a href="#org221a1f0">41</a>.</li>
+<li>After all, Figures <a href="#orgd961134">45</a> and
+<a href="#org37acccd">46</a> are very similar to Figures
+<a href="#org2fbd19a">47</a> and <a href="#org640856a">48</a>.</li>
 </ul></li>
 <li>It may be more useful to compare steady-state behaviors
 <ul class="org-ul">
@@ -10949,16 +11257,16 @@ plt.close(<span style="color: #CC9393;">"all"</span>)
 </code></pre>
 </div>
 
-<pre class="example" id="org0e05667">
+<pre class="example" id="org8a81398">
 
 Comparison with thermal density matrix
 --------------------------------------
-Frobenius error : 3.454523e-16
-Trace distance  : 2.377635e-16
+Frobenius error : 3.874947e-16
+Trace distance  : 2.932736e-16
 E_ss            : 0.810990 
 E_thermal       : 0.810990 
 
-||rho_ss - rho_th||_F = 3.454522942482725e-16
+||rho_ss - rho_th||_F = 3.87494731158183e-16
 
 Boltzmann Temperatures
 ----------------------
@@ -10967,37 +11275,37 @@ Thermal density matrix  : 300.000 K
 Lindblad steady state   : 300.000 K
 
 
-Code executed at 2026-10-06 19:44:23.942730
+Code executed at 2026-10-14 22:19:55.780872
 </pre></li>
 </ul></li>
 </ul>
 <details><summary>Show/hide code ...</summary>
 
-<div id="orgc61388f" class="figure">
+<div id="org3d82ff6" class="figure">
 <p><img src="img/qho_qutip-closed-vs-thermalization-position-dynamics.png" alt="qho_qutip-closed-vs-thermalization-position-dynamics.png" />
 </p>
-<p><span class="figure-number">Figure 42: </span>Closed and open dynamics are calculated in qutip as validation: do we get dynamics comparable to our previous model done using my custom code?</p>
+<p><span class="figure-number">Figure 49: </span>Closed and open dynamics are calculated in qutip as validation: do we get dynamics comparable to our previous model done using my custom code?</p>
 </div>
 
 
-<div id="orgd970fa2" class="figure">
+<div id="org56ec823" class="figure">
 <p><img src="img/qho_qutip-closed-vs-thermalization-energy-dynamics.png" alt="qho_qutip-closed-vs-thermalization-energy-dynamics.png" />
 </p>
-<p><span class="figure-number">Figure 43: </span>Closed and open dynamics are calculated in <code>qutip</code>, and the probability distribution is plotted over energy as as validation: do we get dynamics comparable to our previous model done using my custom code?</p>
+<p><span class="figure-number">Figure 50: </span>Closed and open dynamics are calculated in <code>qutip</code>, and the probability distribution is plotted over energy as as validation: do we get dynamics comparable to our previous model done using my custom code?</p>
 </div>
 </details>
 
-<div id="org0346c83" class="figure">
+<div id="org7842202" class="figure">
 <p><img src="img/qho_qutip_relaxation_vs_thermalization_vs_thermal_position.png" alt="qho_qutip_relaxation_vs_thermalization_vs_thermal_position.png" />
 </p>
-<p><span class="figure-number">Figure 44: </span>The probability distribution over position of the steady-state density matrix from thermalization is compared to that of the thermal steady-state density matrix.</p>
+<p><span class="figure-number">Figure 51: </span>The probability distribution over position of the steady-state density matrix from thermalization is compared to that of the thermal steady-state density matrix.</p>
 </div>
 
 
-<div id="org704c38e" class="figure">
+<div id="org3286860" class="figure">
 <p><img src="img/qho_qutip_relaxation_vs_thermalization_vs_thermal_energy.png" alt="qho_qutip_relaxation_vs_thermalization_vs_thermal_energy.png" />
 </p>
-<p><span class="figure-number">Figure 45: </span>The probability distribution over energy of the steady-state density matrix from relaxation is compared to that of thermalization as well as that of the thermal steady-state density matrix.</p>
+<p><span class="figure-number">Figure 52: </span>The probability distribution over energy of the steady-state density matrix from relaxation is compared to that of thermalization as well as that of the thermal steady-state density matrix.</p>
 </div>
 <ul class="org-ul">
 <li>For the oscillator here, see that:
@@ -11037,7 +11345,7 @@ and the quantum harmonic oscillator
 The Hamiltonian for this system may be written as
 </p>
 \begin{equation}
-\label{org218cb7a}
+\label{org069544b}
 \hat{H}=\hat{H}_{e}\otimes\hat{I}_{v}+\hat{H}_{ev}+\hat{I}_{e}\otimes\hat{H}_{v}
 \end{equation}
 <ul class="org-ul">
@@ -11047,7 +11355,7 @@ the isolated electron, which we will write here as
 </p>
 
 \begin{equation}
-\label{orgcc74a96}
+\label{org37d3270}
 \hat{H}_{e}=-\gamma\hat{\sigma}_{x}+\frac{\Delta}{2}\hat{\sigma}_{z}
 \end{equation}
 <ul class="org-ul">
@@ -11059,7 +11367,7 @@ the isolated electron, which we will write here as
 \(\hat{H}_{v}\) is the vibronic (QHO) Hamiltonian
 </p>
 \begin{equation}
-\label{orgcd80c9b}
+\label{orgb1bbf7c}
 \hat{H}_{v}=-\frac{\hbar^{2}}{2m}\frac{d^{2}}{dQ^{2}}+\frac{1}{2}m\omega^{2}Q^{2}=\frac{\hat{P}_{Q}}{2m}+\frac{1}{2}m\omega^{2}\hat{Q}^{2}+\hbar\omega\left(\hat{a}_{Q}^{\dagger}\hat{a}_{Q}+\frac{1}{2}\hat{I}_{v}\right)
 \end{equation}
 <p>
@@ -11082,7 +11390,7 @@ interaction is linear in both \(\hat{\sigma}_{z}\) and
 </p>
 
 \begin{equation}
-\label{org205bf24}
+\label{orgd2bf472}
 \hat{H}_{ev}=\frac{g_{ev}}{2}\hat{\sigma}_{z}\otimes\hat{Q},
 \end{equation}
 <p>
@@ -11100,7 +11408,7 @@ electron transfer affects the geometry of the molecule
 </ul></li>
 </ul></li>
 <li>In Equation
-\eqref{org218cb7a},
+\eqref{org069544b},
 it is explicit that we exand both the Hamiltonian \(\hat{H}_{e}\)
 for the two-dimensional electronic state and the Hamiltonian
 \(\hat{H}_{v}\) for and \(N\)-dimensional oscillator to a larger
@@ -11108,15 +11416,15 @@ Hilbert space of dimension \(2N\)</li>
 <li><p>
 It is customary in the literature to omit the identity operators
 from Equation
-\eqref{org218cb7a}
+\eqref{org069544b}
 leaving them implicit rather than explicit, so that we rewrite
 Equation
-\eqref{org218cb7a}
+\eqref{org069544b}
 as
 </p>
 
 \begin{equation}
-\label{org0ccb743}
+\label{orga0f7ffb}
 \hat{H}=\hat{H}_{e}+\hat{H}_{ev}+\hat{H}_{v}=-\gamma\hat{\sigma}_{x}+\frac{\Delta}{2}\hat{\sigma}_{z}+\frac{g_{ev}}{2}\hat{\sigma}_{z}\otimes\hat{Q}+\frac{\hat{P}_{Q}}{2m}+\frac{1}{2}m\omega^{2}\hat{Q}^{2}
 \end{equation}</li>
 </ul></li>
@@ -11126,7 +11434,7 @@ as
 <div id="outline-container-the-statics-of-an-electronvibron-qca-cell" class="outline-3">
 <h3 id="the-statics-of-an-electronvibron-qca-cell"><span class="section-number-3">9.2.</span> The Statics of an Electron+vibron QCA cell</h3>
 <div class="outline-text-3" id="text-the-statics-of-an-electronvibron-qca-cell">
-<div class="note" id="org05ffc81">
+<div class="note" id="org8981ed3">
 <p>
 <b>Exercise 10.1</b>
 Calculate the ground state for a driven QCA molecule, including the
@@ -11137,7 +11445,7 @@ configuration.
 <details><summary>Show/hide solution ...</summary>
 <p>
 The following code provides a solution, with results shown in Figure
-<a href="#org9368d9f">50</a>.
+<a href="#org96b7a21">53</a>.
 </p>
 <div class="org-src-container">
 <pre class="src src-python"><code>
@@ -11328,12 +11636,15 @@ Driver polarization: -1; target polarization: 0.993
 
 [[./img/driven_electron_vibron_distrib.png]]
 
-Code executed at 2026-10-06 19:44:30.112450
+Code executed at 2026-10-14 22:19:59.082775
 </pre>
 
-<p>
-\([[file:img/driven_electron_vibron_distrib.png]]\)
+
+<div id="org96b7a21" class="figure">
+<p><img src="img/driven_electron_vibron_distrib.png" alt="driven_electron_vibron_distrib.png" />
 </p>
+<p><span class="figure-number">Figure 53: </span>Dynamics calculated using the Lindblad equation reflect damping and dissipation. (a) The QHO modeled using the quantum Liouville equation behaves as a closed-system, in which oscillations persist forever. In the case of Lindblad evolution, however, damping is evident as oscillations decrease in amplitude with time. (b) In the energy basis, Liouvillian evolution conserves energy, but an exponential decrease in energy is evident in the open system modeled using the Lindblad equation.</p>
+</div>
 </details>
 
 </div>
@@ -11347,7 +11658,7 @@ it to one side of \(Q=0\)</li>
 and causes the opposite response in the molecular bonds</li>
 </ul></li>
 </ul>
-<div class="note" id="org59e7a7a">
+<div class="note" id="org3a265f5">
 <p>
 <b>Exercise 10.2</b>
 Calculate the cell-cell response for a driven QCA molecule, including
@@ -11357,7 +11668,7 @@ cell without any molecular vibrations.
 <details><summary>Show/hide solution ...</summary>
 <p>
 The following code provides a solution, shown in Figure
-<a href="#orgd77308b">51</a>.
+<a href="#org464ef70">54</a>.
 </p>
 <div class="org-src-container">
 <pre class="src src-python"><code>
@@ -11513,12 +11824,15 @@ plt.close(<span style="color: #CC9393;">'all'</span>)
 
 [[./img/driven_electron_vibron_cell-cell-pol.png]]
 
-Code executed at 2026-10-06 19:44:33.095511
+Code executed at 2026-10-14 22:20:01.548807
 </pre>
 
-<p>
-\([[file:img/driven_electron_vibron_cell-cell-pol.png]]\)
+
+<div id="org464ef70" class="figure">
+<p><img src="img/driven_electron_vibron_cell-cell-pol.png" alt="driven_electron_vibron_cell-cell-pol.png" />
 </p>
+<p><span class="figure-number">Figure 54: </span>Electron-vibron coupling enhances the cell-cell response. This is done through a phenomena called the self-trapping of charge. The reorganization of atoms due to the electron transfer enhances the trapping of charge on a dot, leading to better localization and a stronger polarization response.</p>
+</div>
 </details>
 
 </div>
@@ -11527,7 +11841,7 @@ Code executed at 2026-10-06 19:44:33.095511
 <div id="outline-container-dynamics-a-driven-cell-with-an-abrupt-driver-switch" class="outline-3">
 <h3 id="dynamics-a-driven-cell-with-an-abrupt-driver-switch"><span class="section-number-3">9.3.</span> Dynamics: A Driven Cell with an Abrupt Driver Switch</h3>
 <div class="outline-text-3" id="text-dynamics-a-driven-cell-with-an-abrupt-driver-switch">
-<div class="note" id="org66dc755">
+<div class="note" id="org536e810">
 <p>
 <b>Exercise 10.1</b>
 Let us prepare a target cell by setting a nearby a driver cell to have
@@ -11538,56 +11852,59 @@ time for \(t>0\) if at \(t=0,\) the driver state is abruptly switched to
 \(P_{\text{drv}}\left(t>0\right)=-1\). The initial preparation and the
 abrupt driver switch at \(t=0\), and the final configuration are shown
 in Figures
-<a href="#org268db6f">46</a>-<a href="#org285c729">48</a>.
+<a href="#org80861f3">55</a>-<a href="#orgb9e5266">57</a>.
 In more detail:
 </p>
 <ol class="org-ol">
 <li>The driver is set to state \(P_{drv}=-1\) in order to prepare a
 vibronic QCA cell to be in state \(\ket{0}\) with \(P=1\), as shown
 in Figure
-<a href="#org268db6f">46</a>. The
+<a href="#org80861f3">55</a>. The
 vibronic QCA cell is relaxed close to its ground state.</li>
 <li>At \(t=0,\) the driver is abruptly switched to \(P_{drv}=1\). This
 injects a kink of energy into the system, exciting the target cell by
 \(E_{k}\). See Figure
-<a href="#orgb3a1b31">47</a> What
+<a href="#orge555e1f">56</a> What
 happens next (\(t>0^{+}\))?</li>
 <li><p>
 After a long time, the electron has transferred to the other dot, and
 the QCA has achieved a lower-energy configuration by releasing energy
 to the environment as heat. The final configuration is shown in
 Figure
-<a href="#org285c729">48</a>.
+<a href="#orgb9e5266">57</a>.
 </p>
 
-<div id="org268db6f" class="figure">
+<div id="org80861f3" class="figure">
 <p><img src="img/inset_driven_dqd_-1_1.png" alt="inset_driven_dqd_-1_1.png" />
 </p>
-<p><span class="figure-number">Figure 46: </span>\(t<0\)</p>
+<p><span class="figure-number">Figure 55: </span>\(t<0\)</p>
 </div>
 
-<div id="orgb3a1b31" class="figure">
+<div id="orge555e1f" class="figure">
 <p><img src="img/inset_driven_dqd_1_1.png" alt="inset_driven_dqd_1_1.png" />
 </p>
-<p><span class="figure-number">Figure 47: </span>\(t=0^{+}\)</p>
+<p><span class="figure-number">Figure 56: </span>\(t=0^{+}\)</p>
 </div></li>
 </ol>
 <div class="org-center">
 
-<div id="org285c729" class="figure">
+<div id="orgb9e5266" class="figure">
 <p><img src="img/inset_driven_dqd_1_-1.png" alt="inset_driven_dqd_1_-1.png" />
 </p>
-<p><span class="figure-number">Figure 48: </span>\(t\rightarrow\infty\)</p>
+<p><span class="figure-number">Figure 57: </span>\(t\rightarrow\infty\)</p>
 </div>
 </div>
 
 <details><summary>Show/hide solution ...</summary>
 <p>
 The following code provides a solution, shown in Figure
-<a href="#orgcefdf43">55</a>.
+<a href="#orgd2598f5">58</a>.
 </p>
 <div class="org-src-container">
 <pre class="src src-python"><code>
+<span style="color: #F0DFAF; font-weight: bold;">import</span> sys
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(sys.executable)
+
 <span style="color: #F0DFAF; font-weight: bold;">import</span> datetime <span style="color: #F0DFAF; font-weight: bold;">as</span> dt
 <span style="color: #F0DFAF; font-weight: bold;">import</span> numpy <span style="color: #F0DFAF; font-weight: bold;">as</span> np
 <span style="color: #F0DFAF; font-weight: bold;">import</span> scipy <span style="color: #F0DFAF; font-weight: bold;">as</span> sp
@@ -11736,9 +12053,16 @@ plt.close(<span style="color: #CC9393;">"all"</span>)
 </code></pre>
 </div>
 
-<p>
-\([[file:img/driven_electron_vibron_cell-cell-pol.png]]\)
+<pre class="example">
+/Users/enrique_blair/anaconda3/envs/mQCA-intro-env/bin/python3
+</pre>
+
+
+<div id="orgd2598f5" class="figure">
+<p><img src="img/driven_electron_vibron_cell-cell-pol.png" alt="driven_electron_vibron_cell-cell-pol.png" />
 </p>
+<p><span class="figure-number">Figure 58: </span>Electron-vibron coupling enhances the cell-cell response. This is done through a phenomena called the self-trapping of charge. The reorganization of atoms due to the electron transfer enhances the trapping of charge on a dot, leading to better localization and a stronger polarization response.</p>
+</div>
 </details>
 
 </div>
@@ -11753,7 +12077,7 @@ plt.close(<span style="color: #CC9393;">"all"</span>)
 hybrid optimization can provide an advantage over classical
 approaches, we need to discuss computational complexity classes</li>
 </ul>
-<div class="note" id="orge3254e1">
+<div class="note" id="org6a2d2b9">
 <p>
 <b>Theorem 3.1</b>: (Euler's Theorem) A connected graph contains an Euler
 cycle if and
@@ -11761,11 +12085,9 @@ only if every vertex has an even number of edges incident upon it.
 </p>
 <details><summary>Proof ...</summary>
 <ul class="org-ul">
-<li><p>
-TODO. I think we can handle this now.
-</p>
-</details></li>
+<li>TODO. I think we can handle this now.</li>
 </ul>
+</details>
 
 </div>
 </div>
@@ -11815,6 +12137,365 @@ for example</li>
 some constant \(c\)) or polynomial (\(\sim n^{p}\) for some
 constant power \(p\))</li>
 </ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-tutorials---pennylane---quantum-optimization" class="outline-3">
+<h3 id="tutorials---pennylane---quantum-optimization"><span class="section-number-3">10.2.</span> Tutorials - Pennylane - Quantum Optimization</h3>
+<div class="outline-text-3" id="text-tutorials---pennylane---quantum-optimization">
+<p>
+The following code creates a Hamiltonian object,
+</p>
+\begin{equation}
+H=\mathbf{1}_{1}\otimes\mathbf{X}_{0}+\mathbf{Z}_{1}\otimes\mathbf{1}_{0}+\frac{1}{2}\mathbf{X}_{1}\otimes\mathbf{X}_{0},
+\end{equation}
+<p>
+where I have added subscripts to emphasize which qubit each operator
+acts on:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #F0DFAF; font-weight: bold;">import</span> pennylane <span style="color: #F0DFAF; font-weight: bold;">as</span> qp
+
+<span style="color: #DFAF8F;">H</span> = qp.Hamiltonian([1, 1, 0.5], [qp.PauliX(0), qp.PauliZ(1), qp.PauliX(0) @ qp.PauliX(1)])
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(H)
+</code></pre>
+</div>
+
+<pre class="example">
+1 * X(0) + 1 * Z(1) + 0.5 * (X(0) @ X(1))
+</pre>
+
+<p>
+This is then implemented as a quantum circuit with two layers (\(n=2\))
+and \(t=1\):
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #DFAF8F;">dev</span> = qp.device(<span style="color: #CC9393;">"default.qubit"</span>, wires=2)
+
+<span style="color: #DFAF8F;">t</span> = 1
+<span style="color: #DFAF8F;">n</span> = 2
+
+<span style="color: #7CB8BB;">@qp.qnode</span>(dev)
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">circuit</span>():
+    qp.ApproxTimeEvolution(H, t, n)
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> [qp.expval(qp.PauliZ(i)) <span style="color: #F0DFAF; font-weight: bold;">for</span> i <span style="color: #F0DFAF; font-weight: bold;">in</span> <span style="color: #DCDCCC; font-weight: bold;">range</span>(2)]
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(qp.draw(circuit, level=<span style="color: #CC9393;">"device"</span>)())
+</code></pre>
+</div>
+
+<pre class="example">
+0: ──RX(1.00)─╭RXX(0.50)──RX(1.00)─╭RXX(0.50)─┤  &lt;Z&gt;
+1: ──RZ(1.00)─╰RXX(0.50)──RZ(1.00)─╰RXX(0.50)─┤  &lt;Z&gt;
+</pre>
+
+<p>
+Pennylane provides the <code>layer()</code> function to repeat circuits. As an
+example, we create a circuit:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">circ</span>(theta):
+    qp.RX(theta, wires=0)
+    qp.Hadamard(wires=1)
+    qp.CNOT(wires=[0, 1])
+
+<span style="color: #7CB8BB;">@qp.qnode</span>(dev)
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">circuit</span>(param):
+    circ(param)
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> [qp.expval(qp.PauliZ(i)) <span style="color: #F0DFAF; font-weight: bold;">for</span> i <span style="color: #F0DFAF; font-weight: bold;">in</span> <span style="color: #DCDCCC; font-weight: bold;">range</span>(2)]
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(qp.draw(circuit)(0.5))
+</code></pre>
+</div>
+
+<pre class="example">
+0: ──RX(0.50)─╭●─┤  &lt;Z&gt;
+1: ──H────────╰X─┤  &lt;Z&gt;
+</pre>
+
+<p>
+Then, we use the layer() function:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #7CB8BB;">@qp.qnode</span>(dev)
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">circuit</span>(params, **kwargs):
+    qp.layer(circ, 3, params)
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> [qp.expval(qp.PauliZ(i)) <span style="color: #F0DFAF; font-weight: bold;">for</span> i <span style="color: #F0DFAF; font-weight: bold;">in</span> <span style="color: #DCDCCC; font-weight: bold;">range</span>(2)]
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(qp.draw(circuit)([0.3, 0.4, 0.5]))
+</code></pre>
+</div>
+
+<pre class="example">
+0: ──RX(0.30)─╭●──RX(0.40)─╭●──RX(0.50)─╭●─┤  &lt;Z&gt;
+1: ──H────────╰X──H────────╰X──H────────╰X─┤  &lt;Z&gt;
+</pre>
+</div>
+<div id="outline-container-qaoa" class="outline-4">
+<h4 id="qaoa"><span class="section-number-4">10.2.1.</span> QAOA</h4>
+<div class="outline-text-4" id="text-qaoa">
+<p>
+The quantum approximate optimization algorithm (QAOA) is a general
+technique that may be used to find approximate solutions to
+combinatorial optimization problems. Particularly suitable are those
+problems which can be written as a search for an optimal bit string.
+</p>
+
+<p>
+The QAOA process consists of the following steps:
+</p>
+<ol class="org-ol">
+<li>Define a cost Hamiltonian, \(H_{C}\), whose ground state encodes the
+solution to the optimization problem</li>
+<li>Define a mixer Hamiltonian, \(H_{M}\)</li>
+<li>Construct the circuits \(e^{-i\gamma H_{C}}\) and
+\(e^{-i\alpha H_{M}}\), which we call cost and mixer layers,
+respectively</li>
+<li><p>
+Choose a parameter \(n\geq1\), and build the circuit
+</p>
+\begin{equation}
+U\left(\gamma,\alpha\right)=e^{-i\alpha_{n}H_{M}}e^{-i\gamma_{n}H_{C}}\cdots e^{-i\alpha_{1}H_{M}}e^{-i\gamma_{1}H_{C}}
+\end{equation}
+<p>
+consisting of repeated application of the cost and mixing layers
+</p></li>
+<li>Prepare an initial state, apply \(U\left(\gamma,\alpha\right)\), and
+use classical techniques to optimize the parameters</li>
+<li>After the circuit has been optimized, measurements of the output
+state reveal approximate solutions to the optimization problem.
+We will now apply QAOA to a problem</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-qaoa-solution-to-a-minimum-vertex-cover" class="outline-4">
+<h4 id="qaoa-solution-to-a-minimum-vertex-cover"><span class="section-number-4">10.2.2.</span> QAOA solution to a Minimum Vertex Cover</h4>
+<div class="outline-text-4" id="text-qaoa-solution-to-a-minimum-vertex-cover">
+<ul class="org-ul">
+<li>First, we start with some imports we'll need</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #F0DFAF; font-weight: bold;">from</span> pennylane <span style="color: #F0DFAF; font-weight: bold;">import</span> qaoa
+<span style="color: #F0DFAF; font-weight: bold;">from</span> pennylane <span style="color: #F0DFAF; font-weight: bold;">import</span> numpy <span style="color: #F0DFAF; font-weight: bold;">as</span> np
+<span style="color: #F0DFAF; font-weight: bold;">from</span> matplotlib <span style="color: #F0DFAF; font-weight: bold;">import</span> pyplot <span style="color: #F0DFAF; font-weight: bold;">as</span> plt
+<span style="color: #F0DFAF; font-weight: bold;">import</span> networkx <span style="color: #F0DFAF; font-weight: bold;">as</span> nx
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>For a simple, starter problem, we define a four-vertex graph for which
+we want to find the minimum vertex cover
+<ul class="org-ul">
+<li>We can understand a <b>graph</b> as a set of <b>nodes</b>
+\(\left\{ 1,2,\ldots,N\right\}\) connected by <b>edges</b>
+\(\left\{ \left(1,2\right),\left(1,3\right),\ldots\right\}\).</li>
+<li>A <b>cover</b> is a set of nodes which include at least one endpoint of
+each edge in the graph.
+<ul class="org-ul">
+<li>We could simply specify all nodes in the graph,
+\(\left\{ 1,2,3,4\right\}\); but, this isn't a minimum cover.</li>
+<li>A <b>minimum cover</b> is one which is no longer a cover if any one of
+its nodes is removed.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #DFAF8F;">edges</span> = [(0, 1), (1, 2), (2, 0), (2, 3)]
+<span style="color: #DFAF8F;">graph</span> = nx.Graph(edges)
+<span style="color: #DFAF8F;">positions</span> = nx.spring_layout(graph, seed=1)
+
+nx.draw(graph, with_labels=<span style="color: #BFEBBF;">True</span>, pos=positions)
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If working in a Jupyter notebook, skip the following, and use plt.show() instead</span>
+<span style="color: #F0DFAF; font-weight: bold;">import</span> os
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>,
+    <span style="color: #CC9393;">'graph-4-node-pennylane.png'</span>)
+plt.savefig(figname)
+
+plt.close(<span style="color: #CC9393;">'all'</span>)
+</code></pre>
+</div>
+
+
+<div id="orgf0987ea" class="figure">
+<p><img src="img/graph-4-node-pennylane.png" alt="graph-4-node-pennylane.png" />
+</p>
+<p><span class="figure-number">Figure 59: </span>This is a four-node graph for which we wish to find a minimum cover.</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #DFAF8F;">cost_h</span>, <span style="color: #DFAF8F;">mixer_h</span> = qaoa.min_vertex_cover(graph, constrained=<span style="color: #BFEBBF;">False</span>)
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(<span style="color: #CC9393;">"Cost Hamiltonian"</span>, cost_h)
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(<span style="color: #CC9393;">"Mixer Hamiltonian"</span>, mixer_h)
+</code></pre>
+</div>
+
+<pre class="example">
+Cost Hamiltonian 0.75 * (Z(0) @ Z(1)) + 0.75 * Z(0) + 0.75 * Z(1) + 0.75 * (Z(0) @ Z(2)) + 0.75 * Z(0) + 0.75 * Z(2) + 0.75 * (Z(1) @ Z(2)) + 0.75 * Z(1) + 0.75 * Z(2) + 0.75 * (Z(2) @ Z(3)) + 0.75 * Z(2) + 0.75 * Z(3) + -1.0 * Z(0) + -1.0 * Z(1) + -1.0 * Z(2) + -1.0 * Z(3)
+Mixer Hamiltonian 1 * X(0) + 1 * X(1) + 1 * X(2) + 1 * X(3)
+</pre>
+
+<ul class="org-ul">
+<li>Instead of using the <code>ApproxTimeEvolution()</code> function, we will use the
+<code>cost_layer()</code> and <code>mixer_layer()</code> functions from the QAOA module.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">qaoa_layer</span>(gamma, alpha):
+    qaoa.cost_layer(gamma, cost_h)
+    qaoa.mixer_layer(alpha, mixer_h)
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>Next, we build the full variational circuit:
+<ul class="org-ul">
+<li>We use one wire for each vertex of the graph</li>
+<li>We initialize the state to an even superposition over all basis
+states</li>
+<li>We use a circuit consisting of two QAOA layers for this example</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #DFAF8F;">wires</span> = <span style="color: #DCDCCC; font-weight: bold;">range</span>(4)
+<span style="color: #DFAF8F;">depth</span> = 2
+
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">circuit</span>(params, **kwargs):
+    <span style="color: #F0DFAF; font-weight: bold;">for</span> w <span style="color: #F0DFAF; font-weight: bold;">in</span> wires:
+        qp.Hadamard(wires=w)
+    qp.layer(qaoa_layer, depth, params[0], params[1])
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>the <code>layer()</code> function allows us to pass variational parameters
+<code>params[0]</code> and <code>params[1]</code> into each layer of the circuit.</li>
+<li>The cost function which we wish to minimize is the expectation value
+of \(H_{C}\)
+<ul class="org-ul">
+<li>We can obtain \(\Braket{H_{C}}\) using the <code>expval()</code> function</li>
+<li>This returns the expectation value of the circuit's output state</li>
+<li>We also define the device on which the simulation is performed. We
+use the PennyLane-Qulacs plugin to run the circuit on the Qulacs
+simulator:</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #DFAF8F;">dev</span> = qp.device(<span style="color: #CC9393;">"qulacs.simulator"</span>, wires=wires)
+
+<span style="color: #7CB8BB;">@qp.qnode</span>(dev)
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">cost_function</span>(params):
+    circuit(params)
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> qp.expval(cost_h)
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>Finally, we optimize the cost function using the built-in
+<code>GradientDescentOptimizer()</code>
+<ul class="org-ul">
+<li>We use seventy steps for the optimization</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #DFAF8F;">optimizer</span> = qp.GradientDescentOptimizer()
+<span style="color: #DFAF8F;">steps</span> = 70
+<span style="color: #DFAF8F;">params</span> = np.array([[0.5, 0.5], [0.5, 0.5]], requires_grad=<span style="color: #BFEBBF;">True</span>)
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(f<span style="color: #CC9393;">'Established optimizer: </span>{optimizer}<span style="color: #CC9393;">'</span>)
+</code></pre>
+</div>
+
+<pre class="example">
+Established optimizer: &lt;pennylane.optimize.gradient_descent.GradientDescentOptimizer object at 0x11f75f390&gt;
+</pre>
+
+<ul class="org-ul">
+<li>Next, we optimize the circuit:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #F0DFAF; font-weight: bold;">for</span> i <span style="color: #F0DFAF; font-weight: bold;">in</span> <span style="color: #DCDCCC; font-weight: bold;">range</span>(steps):
+    <span style="color: #DFAF8F;">params</span> = optimizer.step(cost_function, params)
+
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(<span style="color: #CC9393;">"Optimal Parameters"</span>)
+<span style="color: #DCDCCC; font-weight: bold;">print</span>(params)
+</code></pre>
+</div>
+
+<pre class="example">
+Optimal Parameters
+[[0.59806352 0.94198485]
+ [0.52797281 0.85552845]]
+</pre>
+
+<ul class="org-ul">
+<li>Now, with the optimal parameters, we reconstruct the probability
+landscape
+<ul class="org-ul">
+<li>We redefine the full QAOA circuit with the optimal parameters</li>
+<li>Now, we return the probabilities of measuring each bit string.</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #7CB8BB;">@qp.qnode</span>(dev)
+<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">probability_circuit</span>(gamma, alpha):
+    circuit([gamma, alpha])
+    <span style="color: #F0DFAF; font-weight: bold;">return</span> qp.probs(wires=wires)
+
+<span style="color: #DFAF8F;">probs</span> = probability_circuit(params[0], params[1])
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>Finally, we can display a bar graph of these probabilities</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><code>plt.style.use(<span style="color: #CC9393;">"seaborn-v0_8"</span>)
+plt.bar(<span style="color: #DCDCCC; font-weight: bold;">range</span>(2 ** <span style="color: #DCDCCC; font-weight: bold;">len</span>(wires)), probs)
+
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">If working in Jupyter, use plt.show, and omit the rest</span>
+<span style="color: #5F7F5F;"># </span><span style="color: #7F9F7F;">plt.show()</span>
+
+<span style="color: #DFAF8F;">figname</span> = os.path.join(<span style="color: #CC9393;">'img'</span>, <span style="color: #CC9393;">'pennylane-QAOA-probabilities.png'</span>)
+plt.savefig( figname )
+
+plt.close(<span style="color: #CC9393;">'all'</span>)
+</code></pre>
+</div>
+
+<ul class="org-ul">
+<li>The highest probabilities correspond to the minimum cover:
+<ul class="org-ul">
+<li>6 in four bits is \(b_{3}b_{2}b_{1}b_{0}=0110\)
+<ul class="org-ul">
+<li>The mapping from nodes is such that node \(n\) is represented by
+bit \(b_{n}\)</li>
+<li>\(6=0110\) describes a set of nodes 1 (\(b_{1})\) and 2
+(\(b_{2}\)), with bits \(b_{2}=b_{1}=1\)</li>
+</ul></li>
+<li><p>
+Similarly, \(10=1010\), which describes a set of nodes \(1\) and
+\(3\), with \(b_{3}=b_{1}=1\)
+</p>
+
+
+<div id="orge34a887" class="figure">
+<p><img src="img/pennylane-QAOA-probabilities.png" alt="pennylane-QAOA-probabilities.png" />
+</p>
+<p><span class="figure-number">Figure 60: </span>Pennylane QAOA finds the minimum cover for the four-node graph.</p>
+</div></li>
 </ul></li>
 </ul>
 </div>
@@ -11973,7 +12654,7 @@ shown here
 </div>
 
 <pre class="example">
-3.11.7 (main, Dec 15 2023, 12:09:56) [Clang 14.0.6 ]
+3.11.15 (main, Jun 11 2026, 15:14:57) [Clang 20.1.8 ]
 </pre></li>
 
 <li>This code uses the built-in <code>sys</code> module to query the Python
@@ -12684,7 +13365,7 @@ Examples of additional string indexing are shown here
 </code></pre>
 </div>
 
-<pre class="example" id="org6bd15c5">
+<pre class="example" id="org405c21e">
 X contains 11 characters.
 
 The first letter of X is "h".
@@ -12900,7 +13581,7 @@ print the elements of the list:
 </code></pre>
 </div>
 
-<pre class="example" id="org0688e73">
+<pre class="example" id="org307fa85">
   Element:
     1
   Element:
@@ -13233,7 +13914,7 @@ square(z)
 </code></pre>
 </div>
 
-<pre class="example" id="org7e4d367">
+<pre class="example" id="org8dbca99">
 7 squared is 49.
 
 Now, let us use square in a FOR loop:
@@ -13423,7 +14104,7 @@ The following Person class has two attributes. These are defined in the
 </div>
 
 <pre class="example">
-&lt;__main__.Person object at 0x105151490&gt;
+&lt;__main__.Person object at 0x101084890&gt;
 Ricky
 23
 </pre>
@@ -13480,7 +14161,7 @@ I am Ricky, and I'm 23 years old.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Blair</p>
-<p class="date">Created: 2026-10-06 Tue 19:44</p>
+<p class="date">Created: 2026-10-14 Wed 22:20</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
